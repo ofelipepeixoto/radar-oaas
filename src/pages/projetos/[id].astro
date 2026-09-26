@@ -1,0 +1,5 @@
+---
+import Layout from "@/layouts/Base.astro";
+import View from "@/views/private-project";
+---
+<Layout><View id={Astro.params.id!} client:only="react" /></Layout>

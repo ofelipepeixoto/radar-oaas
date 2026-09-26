@@ -1,0 +1,22 @@
+---
+import '@/styles/global.css';
+const title = 'Radar OaaS — Avaliador de Prontidão';
+const description = 'Transforme evidências em um próximo passo claro para seu projeto Outcome as a Service. Avaliador estratégico experimental.';
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <slot />
+    <noscript>Ative o JavaScript para preencher e salvar a avaliação. A metodologia pode ser consultada sem JavaScript.</noscript>
+  </body>
+</html>

@@ -1,0 +1,4 @@
+'use client';
+import { createBrowserClient } from '@/lib/supabase/client';
+
+export async function privateApi<T>(path:string,method='GET',body?:unknown):Promise<T>{const client=createBrowserClient();if(!client)throw new Error('Modo privado indisponível: autenticação não configurada.');const {data,error}=await client.auth.getSession();if(error||!data.session)throw new Error('Sessão expirada. Entre novamente para acessar seus projetos.');const response=await fetch(path,{method,headers:{Authorization:`Bearer ${data.session.access_token}`,...(body!==undefined?{'Content-Type':'application/json'}:{})},...(body!==undefined?{body:JSON.stringify(body)}:{})});const result:unknown=await response.json();if(!response.ok)throw new Error(typeof result==='object'&&result!==null&&'error' in result&&typeof result.error==='string'?result.error:'Não foi possível concluir a operação privada.');return result as T;}
