@@ -33,7 +33,7 @@ export default defineConfig({
   expect: { timeout: 15_000 },
   reporter: [['list']],
   // Auth redirects, passwords and bearer tokens must not become CI artifacts.
-  use: { baseURL: 'http://127.0.0.1:3000', trace: 'off', screenshot: 'off', video: 'off' },
+  use: { baseURL: 'http://127.0.0.1:3000', actionTimeout: 15_000, navigationTimeout: 20_000, trace: 'off', screenshot: 'off', video: 'off' },
   projects: [{ name: 'chromium-auth', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
     command: 'npm run dev -- --host 127.0.0.1 --port 3000',

@@ -72,29 +72,42 @@ async function emailLink(email: string, type: 'signup' | 'recovery'): Promise<st
   return result;
 }
 
-async function followEmail(page: Page, email: string, type: 'signup' | 'recovery') {
+async function followEmail(page: Page, email: string, type: 'signup' | 'recovery', progress?: (detail: string) => void) {
+  progress?.('waiting for the local confirmation email');
   const link = await emailLink(email, type);
+  progress?.('following the local confirmation link');
   // A navigation error can contain a one-time token; replace it with a safe diagnostic.
   try { await page.goto(link); } catch { throw new Error(`Could not follow the local ${type} email.`); }
+  progress?.('checking the confirmation redirect path');
   await expect.poll(() => new URL(page.url()).pathname).toBe(type === 'signup' ? '/projetos' : '/conta/redefinir');
 }
 
-async function signUp(page: Page, email: string, password: string, createdUsers: Set<string>) {
+async function signUp(page: Page, email: string, password: string, createdUsers: Set<string>, progress: (detail: string) => void) {
+  progress('opening the account page');
   await page.goto('/conta');
+  progress('opening the signup form');
   await page.getByRole('button', { name: 'Criar conta', exact: true }).click();
+  progress('filling the synthetic email');
   await page.getByLabel('E-mail', { exact: true }).fill(email);
-  await page.getByLabel('Senha', { exact: true }).fill(password);
-  const requested = page.waitForResponse(response => new URL(response.url()).pathname === '/auth/v1/signup');
-  await page.getByRole('button', { name: 'Criar conta privada', exact: true }).click();
-  const response = await requested;
+  progress('filling the password field');
+  // The signup label also contains the password guidance text in a <small>.
+  await page.getByLabel(/^Senha(?:\s|$)/).fill(password);
+  progress('submitting the signup request');
+  const [response] = await Promise.all([
+    page.waitForResponse(response => new URL(response.url()).pathname === '/auth/v1/signup', { timeout: 15_000 }),
+    page.getByRole('button', { name: 'Criar conta privada', exact: true }).click(),
+  ]);
+  progress('checking signup response and confirmation requirement');
   expect(response.status(), 'Local signup must succeed.').toBe(200);
   const body = await response.json() as { id?: string; user?: { id: string }; access_token?: string };
   const id = body.user?.id ?? body.id;
   if (id) createdUsers.add(id);
   expect(Boolean(body.access_token), 'Email confirmation must precede session issuance.').toBe(false);
+  progress('checking the confirmation notice and absent session');
   await expect(page.getByRole('status')).toContainText('Confira seu e-mail');
   expect(Boolean(await session(page)), 'Unconfirmed signup must not authenticate the browser.').toBe(false);
-  await followEmail(page, email, 'signup');
+  await followEmail(page, email, 'signup', progress);
+  progress('opening the private projects page after confirmation');
   await expect(page.getByRole('heading', { name: 'Meus projetos', exact: true })).toBeVisible();
   const signed = await authenticated(page);
   createdUsers.add(signed.userId);
@@ -133,6 +146,8 @@ test('duas contas: cadastro confirmado, HTTP e RLS isolados, recuperação e sa�
     const contextB = await browser.newContext({ baseURL: appOrigin });
     contexts.push(contextA, contextB);
     for (const context of contexts) {
+      context.setDefaultTimeout(15_000);
+      context.setDefaultNavigationTimeout(20_000);
       await context.route('**/*', route => {
         const origin = new URL(route.request().url()).origin;
         return [appOrigin, supabaseOrigin].includes(origin) ? route.continue() : route.abort();
@@ -142,9 +157,9 @@ test('duas contas: cadastro confirmado, HTTP e RLS isolados, recuperação e sa�
     const pageB = await contextB.newPage();
 
     stage = 'account A signup and email confirmation';
-    const identityA = await signUp(pageA, emailA, password, createdUsers);
+    const identityA = await signUp(pageA, emailA, password, createdUsers, detail => { stage = `account A signup: ${detail}`; });
     stage = 'account B signup and email confirmation';
-    const identityB = await signUp(pageB, emailB, password, createdUsers);
+    const identityB = await signUp(pageB, emailB, password, createdUsers, detail => { stage = `account B signup: ${detail}`; });
     expect(identityA.userId === identityB.userId, 'The contexts must own distinct accounts.').toBe(false);
 
     stage = 'account A private creation, save and reload through Astro HTTP';
