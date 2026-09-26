@@ -91,7 +91,7 @@ async function signUp(page: Page, email: string, password: string, createdUsers:
   await page.getByLabel('E-mail', { exact: true }).fill(email);
   progress('filling the password field');
   // The signup label also contains the password guidance text in a <small>.
-  await page.getByLabel(/^Senha(?:\s|$)/).fill(password);
+  await page.getByLabel(/^Senha/).fill(password);
   progress('submitting the signup request');
   const [response] = await Promise.all([
     page.waitForResponse(response => new URL(response.url()).pathname === '/auth/v1/signup', { timeout: 15_000 }),
