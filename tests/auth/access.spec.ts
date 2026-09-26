@@ -165,8 +165,18 @@ test('duas contas: cadastro confirmado, HTTP e RLS isolados, recuperação e sa�
 
     stage = 'account A private creation, save and reload through Astro HTTP';
     await pageA.getByRole('button', { name: '+ Novo projeto', exact: true }).click();
-    await pageA.getByLabel('Nome do novo projeto', { exact: true }).fill('Projeto sintético privado A');
-    await pageA.getByRole('button', { name: 'Criar projeto privado', exact: true }).click();
+    await pageA.getByLabel('Nome do novo projeto (opcional)', { exact: true }).fill('Projeto sintético privado A');
+    await pageA.getByRole('button', { name: 'Começar o guia', exact: true }).click();
+    await expect(pageA.getByRole('heading', { level: 1, name: 'Para quem é a sua ideia?', exact: true })).toBeVisible();
+    await pageA.getByRole('radio', { name: 'Pequenas empresas', exact: true }).check();
+    await pageA.getByRole('button', { name: 'Continuar', exact: true }).click();
+    await expect(pageA.getByRole('heading', { level: 1, name: 'O que você quer melhorar?', exact: true })).toBeVisible();
+    await pageA.reload();
+    await expect(pageA.getByRole('heading', { level: 1, name: 'O que você quer melhorar?', exact: true })).toBeVisible();
+    expect(await pageA.evaluate(() => localStorage.getItem('radar-oaas.guided-demo.v1'))).toBeNull();
+    await pageA.getByRole('button', { name: 'Voltar', exact: true }).click();
+    await expect(pageA.getByRole('radio', { name: 'Pequenas empresas', exact: true })).toBeChecked();
+    await pageA.getByRole('button', { name: 'Aprofundar avaliação', exact: true }).click();
     await expect(pageA.getByLabel('Nome do projeto', { exact: true })).toHaveValue('Projeto sintético privado A');
     const projectId = new URL(pageA.url()).pathname.split('/').pop()!;
     expect(/^[0-9a-f-]{36}$/.test(projectId)).toBe(true);
@@ -174,10 +184,12 @@ test('duas contas: cadastro confirmado, HTTP e RLS isolados, recuperação e sa�
     await pageA.getByRole('button', { name: 'Salvar rascunho', exact: true }).first().click();
     await expect(pageA.getByText('Rascunho privado salvo.', { exact: true })).toBeVisible();
     await pageA.reload();
+    await pageA.getByRole('button', { name: 'Aprofundar avaliação', exact: true }).click();
     await expect(pageA.getByLabel('Cliente ideal (ICP)', { exact: true })).toHaveValue('Cliente fictício restrito à conta A');
     const bundleResponse = await api('GET', `/api/projects/${projectId}`, identityA.token);
     expect(bundleResponse.status).toBe(200);
     const bundle = await bundleResponse.json();
+    expect(bundle.project.draft.guidedIntake).toMatchObject({ version: 1, step: 0, answers: { audience: 'small_business' } });
 
     stage = 'account B has its own working project and cannot access account A';
     const ownB = await api('POST', '/api/projects', identityB.token, { name: 'Projeto sintético privado B', stage: 'idea' });

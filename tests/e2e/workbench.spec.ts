@@ -9,7 +9,7 @@ const DEMO_KEY = 'radar-oaas.synthetic-demo.v1';
 type DemoStore = { name: string; draft: AssessmentInput; history: AssessmentSnapshot[] };
 
 async function openDemo(page: Page) {
-  await page.goto('/demo');
+  await page.goto('/demo?exemplo=financeiro');
   await expect(page.getByRole('heading', { level: 1, name: 'Conciliação financeira', exact: true })).toBeVisible();
   await expect(page.getByText('Demonstração sintética', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Detalhar canvas completo', exact: true }).click();

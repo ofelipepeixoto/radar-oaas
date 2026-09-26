@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-09-26 — entrada guiada e clareza do primeiro resultado
+
+- Página inicial orientada ao valor; projeto privado e demonstração fictícia separados.
+- Quatro etapas por escolhas, “não sei”, texto condicional em “Outro”, progresso e retomada.
+- Resumo personalizado com uma ação principal e preparação do próximo teste.
+- Avaliação detalhada opcional, com preservação de textos manuais, evidências e histórico.
+- Campo opcional versionado no draft, sem SQL novo e sem mudanças em notas, gates ou Auth compartilhado.
+- 14 testes unitários novos; seis jornadas de navegador e persistência privada adicionadas à suíte Auth. Execução remota registrada após conclusão; piloto com leigos ainda não realizado.
+
+
 ## 2026-09-26 — Homologação Auth autorizada
 
 Acrescentado workflow com Supabase local descartável, Auth/PostgREST reais e capturador Mailpit. Configuração local alinhada aos redirects usados pelo aplicativo e confirmação de e-mail obrigatória. Nova suíte de navegador para cadastro, confirmação, recuperação e isolamento A/B por HTTP; remoção dos usuários de teste e containers ao final. Sem mudanças no Auth remoto, nos dados Radar, no domínio de cálculo ou na licença. Resultado executado e limite da homologação hospedada registrados em STATUS.

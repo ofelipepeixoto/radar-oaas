@@ -35,7 +35,24 @@ export function emptyOperationalSignals():OperationalSignals{return {novelCustom
 export const planPhaseSchema=z.object({id:identifier,period:short,stage:stageSchema,objective:text,responsible:short,successCriterion:text,stopRule:text}).strict();
 export type PlanPhase=z.infer<typeof planPhaseSchema>;
 export function defaultPlan90Days():PlanPhase[]{return PLAN_90_DAYS.map((p,index)=>({id:`phase-${index+1}`,period:p.period,stage:p.stage,objective:p.objective,responsible:'',successCriterion:'Definir antes da execução; não representa meta atingida.',stopRule:'Interromper diante de direitos ou controles pendentes, falha grave ou capacidade humana excedida.'}));}
+/** Optional UI declarations. They never substitute for evidence or reviewed domain records. */
+export const guidedAnswersSchema = z.object({
+ audience:z.enum(['people','solo','small_business','large_business','unknown','other']).optional(),
+ audienceOther:z.string().max(180).optional(),
+ work:z.enum(['support','documents','sales','admin','other','unknown']).optional(),
+ workOther:z.string().max(180).optional(),
+ benefit:z.enum(['time','cost','errors','sales','unknown']).optional(),
+ traction:z.enum(['none','conversations','test','paid','unknown']).optional(),
+ currentMethod:z.enum(['team','provider','tool','unknown']).optional(),
+ verification:z.enum(['inspect','compare','measure','unknown']).optional(),
+ sensitive:z.enum(['yes','no','unknown']).optional(),
+}).strict();
+export const guidedIntakeSchema = z.object({
+ version:z.literal(1),step:z.number().int().min(0).max(4),answers:guidedAnswersSchema,
+ appliedCanvas:z.partialRecord(z.enum(CANVAS_KEYS),text).optional(),
+}).strict();
 export const assessmentInputSchema = z.object({
+ guidedIntake:guidedIntakeSchema.optional(),
  projectId:identifier,stage:stageSchema,operationalSignals:operationalSignalsSchema.default(emptyOperationalSignals),plan90Days:z.array(planPhaseSchema).min(1).max(20).default(defaultPlan90Days),scenarios:z.array(scenarioSchema).max(3),market:bottomUpSchema.nullable(),canvas:z.record(z.enum(CANVAS_KEYS),text),
  evidence:z.array(evidenceSchema).max(1000),criteria:z.record(z.enum(CRITERIA),ratingSchema),blocks:z.record(z.enum(BLOCKS),ratingSchema),
  gates:z.record(z.enum(GATES),gateSchema),checks:z.record(z.enum(CHECKS),checkSchema),pilotTargets:pilotTargetsSchema.nullable(),economics:economicsSchema.nullable(),capacity:capacitySchema.nullable(),risks:z.array(riskSchema).max(100),experiments:z.array(experimentSchema).max(100),

@@ -77,3 +77,13 @@ Execução efetivamente aprovada: [36223385630](https://github.com/ofelipepeixot
 ## Preparação documental para GitHub — 26/09/2026
 
 Destino autorizado: `ofelipepeixoto/radar-oaas`. A cópia preserva aplicação, migração, testes e workflow do commit Sites `cb9cf548908f4fec935d11cf029987f58e4c9ce6`; as alterações se limitam a documentação e à remoção/ignore do vínculo particular Sites. Não muda versão de regras, resultados ou cobertura executada. O MVP foi publicado em 26/09/2026 no repositório público, branch `main`, commit `5e53d58210f81afed34b436f069a7ab55e83c3e4`. Os 197 arquivos publicados correspondem, por conteúdo, à cópia preparada; árvore Git `4d071e2a5638a17f611a916710e42c00cf5dfd16`. A [CI remota 36221322124](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36221322124) concluiu com `success` todos os gates: instalação, lint, tipos, build, instalação Chromium e 104 testes unitários/IA, 14 de integração e 10 E2E. O relato privado de vulnerabilidades foi habilitado; nenhuma proteção de branch foi criada. Licença/titular e homologação Auth/PostgREST com duas contas permanecem pendentes.
+
+## Simplificação de UX — 26/09/2026
+
+| Requisito do usuário | Implementação | Evidência de verificação |
+| --- | --- | --- |
+| Menos texto e linguagem acessível | `home.tsx`, `guided-journey.tsx`, quatro etapas, radios nativos e “Outro” condicional | `guided.spec.ts`: fluxo por escolhas, teclado e viewport móvel (execução na CI) |
+| Respostas orientam o próximo passo | `guided.ts`: resumo, dúvida e ação determinísticos | `guided.test.ts`: ramificações e incertezas; sem notas ou evidências inferidas |
+| Salvar e retomar sem perda | `guidedIntake` opcional e patch de campos administrados | Unidade: drafts legados e edição manual; navegador: voltar/recarregar; Auth: GET privado após reload |
+| Não interferir no Radar | Nenhuma alteração SQL, RLS ou Auth; draft JSONB existente | Diff da implementação; suíte de isolamento continua obrigatória |
+| Tornar produto compreensível para vender | Auditoria e roteiro de teste em `auditoria-ux-2026-09-26.md` | Teste com cinco leigos e validação comercial ainda pendentes; nenhuma alegação de PMF |

@@ -1,5 +1,14 @@
 # Estado verificável — 26/09/2026
 
+## Jornada guiada — atualização de UX
+
+A entrada agora explica a proposta e separa projeto privado de exemplo fictício. O guia tem quatro etapas por escolhas, sem opções pré-marcadas: cliente, entrega, descobertas e resultado. Texto livre aparece em “Outro”; nome é opcional na criação. O primeiro resultado reúne a intenção, uma dúvida principal e uma ação com perguntas de preparação. Avaliação completa segue acessível em “Aprofundar avaliação”.
+
+`guidedIntake` opcional persiste no JSON do rascunho existente. Rascunhos legados, textos manuais, evidências, notas, etapas e snapshots são preservados. Nenhuma migração, configuração global de Auth ou alteração no Radar compartilhado foi necessária. A demonstração guiada usa uma chave separada do exemplo completo. IA paga permanece desativada.
+
+Verificações locais desta rodada: lint e typecheck aprovados; 14 testes específicos do guia aprovados e 14 de integração aprovados. A CI remota verificará a suíte completa, 16 jornadas de navegador e o fluxo de duas contas locais com persistência do guia. Testes com cinco leigos e homologação de e-mails no ambiente hospedado continuam pendentes. [Auditoria e critérios de aceite](docs/auditoria-ux-2026-09-26.md). Os números nas seções históricas abaixo referem-se às versões anteriores.
+
+
 MVP experimental **Radar OaaS — Avaliador de Prontidão**. Stack vigente: Astro 7.3.5, React 19.2.6, TypeScript e adaptador Cloudflare 14.3.3. Sites privado é o destino de hospedagem. O repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) foi criado em 26/09/2026; MVP publicado no commit `5e53d58210f81afed34b436f069a7ab55e83c3e4` e [CI remota aprovada](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36221322124). Licença definitiva e titular continuam pendentes. Não houve contratação de plano pago nem uso da API paga da OpenAI.
 
 ## Implementado
