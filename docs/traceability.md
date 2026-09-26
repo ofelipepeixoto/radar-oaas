@@ -55,6 +55,8 @@ Os IDs abaixo (`REQ-*`) organizam rastreabilidade documental; os códigos execut
 
 Homologação Auth autorizada pelo usuário em 26/09/2026. `tests/auth/` acrescenta a jornada de cadastro, confirmação e recuperação com Mailpit, dois navegadores e requisições HTTP reais. `.github/workflows/auth.yml` executa essa jornada e `LIVE` em Supabase descartável; `STATUS.md` registra a execução efetiva. O gate local não certifica SMTP/redirects do ambiente compartilhado hospedado.
 
+Execução efetivamente aprovada: [36223385630](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36223385630), commit `4aa6261f8c64b1ed59de5857dec16f6c7959937f`: `LIVE` (cinco casos) e `tests/auth/access.spec.ts` (uma jornada integral). Aplicativo e migração preservados; alterações de seletores e cabeçalho Origin pertencem somente ao teste HTTP.
+
 | ID | Fonte/requisito | Artefato | Verificação/limite |
 | --- | --- | --- | --- |
 | REQ-38 | Especificação §15: documentação e comunidade | README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, GOVERNANCE, CHANGELOG, ROADMAP, AGENTS, issue/PR templates | Inspeção de arquivos/links; templates não são issues abertas |

@@ -11,7 +11,7 @@ Registro de execução atualizado em 26/09/2026. O MVP técnico existente é a b
 
 ## Ordem de execução
 
-O usuário aprovou iniciar a homologação técnica em 26/09/2026. Primeiro executar o gate Auth/PostgREST/Mailpit descartável no GitHub; depois concluir a jornada hospedada com dois endereços controlados pelo usuário, SMTP e redirects conferidos. Não aplicar licença MIT sem decisão explícita de titular e escopo. Ver resultado efetivo em STATUS.
+O usuário aprovou iniciar a homologação técnica em 26/09/2026. O gate Auth/PostgREST/Mailpit descartável foi aprovado na [execução 36223385630](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36223385630): cinco testes de integração real e uma jornada integral de navegador. Próxima ação: concluir a jornada no Sites hospedado com dois endereços controlados pelo usuário, SMTP e redirects conferidos. Não aplicar licença MIT sem decisão explícita de titular e escopo. Ver limites e resultado efetivo em STATUS.
 
 | Etapa | Entrega necessária | Evidência para avançar |
 | --- | --- | --- |

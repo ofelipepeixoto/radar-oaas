@@ -87,6 +87,8 @@ npm run build
 
 `test:integration` e a jornada autenticada têm níveis de cobertura e pré-requisitos distintos: leia [docs/testing.md](docs/testing.md). Para Auth/REST reais em Supabase local descartável, use `npm run test:supabase` com os pré-requisitos documentados. Testes PGlite exercitam PostgreSQL/RLS local, mas não comprovam Supabase Auth/PostgREST ou produção. Executar a demo no navegador não comprova isolamento entre contas. Nenhum teste bloqueado deve ser descrito como aprovado.
 
+O workflow `auth.yml` agora executa Supabase real descartável e `npm run test:auth` para cadastro, confirmação, recuperação e isolamento por HTTP com duas contas. [Gate local aprovado em 26/09/2026](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36223385630): cinco testes Auth/PostgREST e uma jornada completa de navegador. SMTP/redirects e duas contas no Sites hospedado permanecem como aceite separado.
+
 ## Código público e dados privados
 
 O código publicado no GitHub contém regras documentadas, migrações, testes e exemplos sintéticos. O vínculo particular de implantação Sites foi excluído dessa cópia. Projetos, evidências, avaliações, experimentos e exports pertencem ao proprietário e não serão publicados automaticamente. O DOCX original e sua extração integral não integram o pacote.

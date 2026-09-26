@@ -41,7 +41,7 @@ Fingerprints preservados: tabelas/RLS/grants `dba9c41f6230179ff3a77a51927db0e9`;
 
 ## Pendências explícitas
 
-- **Homologação autenticada completa:** autorizada em 26/09/2026. Gate descartável em preparação no workflow `auth.yml`: cinco testes Auth/PostgREST e jornada de navegador com dois usuários sintéticos. Resultado remoto ainda pendente neste registro. A homologação no Sites hospedado continua dependendo de dois e-mails autorizados e da conferência de SMTP/redirects; nenhum usuário de produção foi usado.
+- **Homologação hospedada:** autorizada em 26/09/2026 e ainda depende de dois e-mails controlados pelo usuário, SMTP e redirects do projeto compartilhado. O gate descartável já passou: cinco testes Auth/PostgREST e uma jornada completa de navegador com dois usuários sintéticos, conforme execução abaixo. Nenhum usuário de produção foi usado.
 - **E-mails de Auth:** os redirects precisam ser conferidos na allowlist do projeto compartilhado antes de liberar cadastro/recuperação ao público. A configuração global existente foi preservada.
 - **Licença e governança:** pacote `UNLICENSED`; titular, licença efetiva e termos de contribuição pendentes. Proteção de branch e regras obrigatórias de revisão/checks não foram criadas. Relato privado está habilitado, mas recebimento de teste, equipe dedicada e SLA não foram confirmados.
 
@@ -76,14 +76,18 @@ A execução exibiu avisos não bloqueantes sobre runtimes das actions checkout/
 
 GitHub Private Vulnerability Reporting habilitado e confirmado na interface em 26/09/2026. Canal pela aba Security/opção de relato privado. Proteção de branch e regras obrigatórias de revisão/checks **não foram criadas**. O pacote permanece `UNLICENSED`; titular e licença efetiva continuam pendentes.
 
-A CI aprovada pertence ao commit identificado acima. Esta atualização posterior registra seu resultado e altera somente documentação; não constitui nova execução de testes. Os 128 testes aprovados não substituem a homologação real de Auth/PostgREST, confirmação/recuperação e redirects entre duas contas, que permanece pendente.
+A CI básica aprovada pertence ao commit identificado acima. Os 128 testes dessa execução não incluíam Auth/PostgREST nem confirmação/recuperação. O gate real local executado posteriormente está registrado abaixo; a homologação hospedada continua pendente.
 
 Próximas etapas: [plano de execução](docs/next-steps.md).
 
-## Homologação Auth — preparação de 26/09/2026
+## Homologação Auth local aprovada — 26/09/2026
 
 Configuração exclusivamente local corrigida: confirmação de e-mail obrigatória, redirects exatos de cadastro/recuperação, senha mínima de oito caracteres e cota local de 30 mensagens capturadas pelo Mailpit. Novo workflow usa containers descartáveis no GitHub Actions, sem credenciais hospedadas, mantendo administração fora do aplicativo. A suíte de navegador usa dois contextos, HTTP Astro e PostgREST reais; emails e traces não são publicados.
 
-Primeira execução completa do job: [36222460714](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36222460714), commit `0a266dc3f2c316fd36fce102da327adeef31475a`. Instalação, lint, tipos, inicialização/migração Supabase e **cinco testes reais Auth/PostgREST/RLS aprovados**. O teste de navegador falhou por timeout no cadastro A: o seletor exato de senha ignorava o texto de ajuda incluído no rótulo. A correção pertence ao teste; a execução integral ainda precisa ser repetida. Containers removidos com sucesso ao final.
+**Execução aprovada:** [36223385630](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36223385630), commit `4aa6261f8c64b1ed59de5857dec16f6c7959937f`, job `108352725227`, `completed/success`. Instalação, lint, tipos, inicialização/migração Supabase, Chromium, **cinco testes Auth/PostgREST/RLS e uma jornada integral de navegador passaram**. O job também removeu os containers com sucesso.
+
+Cobertura executada: duas contas criadas pela UI e confirmadas pelo Mailpit; ausência de sessão antes da confirmação; gravação e retomada de projeto; conta B funcional em seu próprio projeto; bloqueio de leitura, alteração, exclusão, exportação, avaliação e experimento no projeto A; bloqueio direto PostgREST; token adulterado/ausente e proprietário forjado; finalização/exportação/exclusão pelo dono; recuperação real por email local, rejeição da senha antiga, login com a nova senha e logout. Astro HTTP, Auth e PostgREST não foram mockados. O servidor foi iniciado em modo de desenvolvimento; esse resultado não certifica por si só o Worker de produção.
+
+Tentativas anteriores permaneceram registradas: `36222460714` e `36222889868` falharam no seletor de senha, cujo rótulo concatena o texto de ajuda; `36223109102` avançou até a verificação B e revelou que o helper HTTP precisava enviar `Origin` em DELETE, como o navegador. Corrigidos somente os testes, mantendo a proteção CSRF do Astro e as expectativas de isolamento. Os cinco testes Auth/PostgREST passaram nessas tentativas. Não foi necessário alterar código do aplicativo ou migração.
 
 Leituras do ambiente publicado: `/api/projects` respondeu `401` sem sessão; `/auth/v1/settings` confirmou cadastro por e-mail habilitado, confirmação obrigatória e acesso anônimo desabilitado. Sites permanece privado. Essas leituras não validam login, entrega de email ou isolamento entre contas no ambiente hospedado. Nenhuma configuração global de Auth, tabela existente, plano ou licença foi alterada.
