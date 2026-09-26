@@ -53,6 +53,8 @@ Os IDs abaixo (`REQ-*`) organizam rastreabilidade documental; os códigos execut
 
 ## Comunidade e homologação
 
+Homologação Auth autorizada pelo usuário em 26/09/2026. `tests/auth/` acrescenta a jornada de cadastro, confirmação e recuperação com Mailpit, dois navegadores e requisições HTTP reais. `.github/workflows/auth.yml` executa essa jornada e `LIVE` em Supabase descartável; `STATUS.md` registra a execução efetiva. O gate local não certifica SMTP/redirects do ambiente compartilhado hospedado.
+
 | ID | Fonte/requisito | Artefato | Verificação/limite |
 | --- | --- | --- | --- |
 | REQ-38 | Especificação §15: documentação e comunidade | README, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, GOVERNANCE, CHANGELOG, ROADMAP, AGENTS, issue/PR templates | Inspeção de arquivos/links; templates não são issues abertas |

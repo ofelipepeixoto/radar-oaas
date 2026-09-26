@@ -29,7 +29,7 @@ Pré-requisitos adicionais: Docker/containers funcionando e Supabase CLI instala
 
 ```bash
 npx supabase start
-npx supabase db reset
+npx supabase db reset --local --no-seed
 ```
 
 O reset destrói somente os dados do banco local indicado pela configuração; use ambiente descartável. Configure `.env.local` com URL/chave pública local antes de iniciar o aplicativo. A configuração de autenticação/email está em `supabase/config.toml`; qualquer mudança precisa constar no registro do teste.
@@ -45,6 +45,16 @@ Sem pré-requisitos a suíte falha explicitamente, não omite testes silenciosam
 Para homologação, criar contas A e B distintas; A cria projeto/evidência/avaliação/experimento, B tenta ler/criar/alterar/excluir/exportar os IDs de A, incluindo payload com `owner_id` forjado. Verificar que A continua operando e pode exportar/excluir seus próprios dados. Acessos sem sessão e com sessão expirada devem falhar sem expor conteúdo. Registrar respostas sanitizadas e commit.
 
 **Limite desta entrega:** quando Docker/Supabase local ou destino remoto não estiver disponível, essa validação completa fica explicitamente bloqueada. Não substituir por um login falso e anunciar integração real concluída.
+
+### Cadastro, e-mail e recuperação com duas contas
+
+O workflow `.github/workflows/auth.yml` provisiona um Supabase descartável no runner GitHub, sem vincular ou acessar projetos hospedados. Aplica a migração local e executa `test:supabase` e `test:auth`. `scripts/ci/local-supabase-env.mjs` lê o status da CLI sem imprimir credenciais, exige endpoints locais e mascara os valores no log.
+
+Para execução manual local, forneça também `SUPABASE_TEST_MAIL_URL` (Mailpit, porta 54324), `PUBLIC_SUPABASE_URL` e `PUBLIC_SUPABASE_PUBLISHABLE_KEY` com os valores locais. Execute `npm run test:auth`. A suíte inicia Astro em `http://127.0.0.1:3000`, usa Chromium com dois contextos e testa cadastro, confirmação, recuperação e isolamento por HTTP. Ela rejeita URLs remotas e não publica traces, capturas, mensagens de e-mail ou sessões.
+
+O arquivo `supabase/config.toml` é **exclusivamente local**: confirmação obrigatória, senha mínima de oito caracteres, redirects exatos para `/projetos` e `/conta/redefinir`, cota de 30 mensagens por hora no capturador local. Não sincronizar esse arquivo ao projeto compartilhado. Mailpit captura mensagens sem enviá-las a destinatários externos. Ao terminar, use `npx supabase stop --no-backup` somente nessa instância descartável.
+
+Esse gate comprova a integração com serviços reais locais; a homologação do Sites hospedado exige duas contas com e-mails autorizados, confirmação da allowlist de redirects e do SMTP existente. Não criar membros da organização, alterar SMTP global nem desativar confirmação para contornar limitações de entrega. Logout remove a sessão do navegador; não presumir revogação instantânea de todo JWT previamente emitido.
 
 ## Navegador e jornada
 

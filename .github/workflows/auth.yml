@@ -1,0 +1,42 @@
+name: Homologação Auth local
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main, feat/auth-homologation]
+permissions:
+  contents: read
+concurrency:
+  group: auth-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  auth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      ASTRO_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4 verified 2026-09-26
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4 verified 2026-09-26
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run lint && npm run typecheck
+      - name: Start disposable local Auth, PostgREST and email capture
+        run: |
+          # CLI output can contain local credentials. Keep it off public logs.
+          npx supabase start -x realtime,storage-api,imgproxy,postgres-meta,studio,edge-runtime,logflare,vector,supavisor >"$RUNNER_TEMP/supabase-start.log" 2>&1 || { echo 'Local Supabase did not start; no hosted project was contacted.'; exit 1; }
+          npx supabase db reset --local --no-seed >"$RUNNER_TEMP/supabase-reset.log" 2>&1 || { echo 'Local database reset failed.'; exit 1; }
+          node scripts/ci/local-supabase-env.mjs
+      - name: Validate real local Auth, PostgREST and RLS
+        run: npm run test:supabase
+      - run: npx playwright install --with-deps chromium
+      - name: Validate signup, email, recovery and isolation over HTTP
+        run: npm run test:auth
+      - name: Remove disposable containers and captured email
+        if: always()
+        run: |
+          npx supabase stop --no-backup >"$RUNNER_TEMP/supabase-stop.log" 2>&1
+          rm -f "$RUNNER_TEMP/supabase-start.log" "$RUNNER_TEMP/supabase-reset.log" "$RUNNER_TEMP/supabase-stop.log"
+      # Deliberately no Auth trace, screenshot, storage state or email artifacts.

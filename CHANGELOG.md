@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-09-26 — Homologação Auth autorizada
+
+Acrescentado workflow com Supabase local descartável, Auth/PostgREST reais e capturador Mailpit. Configuração local alinhada aos redirects usados pelo aplicativo e confirmação de e-mail obrigatória. Nova suíte de navegador para cadastro, confirmação, recuperação e isolamento A/B por HTTP; remoção dos usuários de teste e containers ao final. Sem mudanças no Auth remoto, nos dados Radar, no domínio de cálculo ou na licença. Resultado executado e limite da homologação hospedada registrados em STATUS.
+
 ## 0.1.0-experimental — preparação local — 2026-09-26
 
 Primeira implementação do Radar OaaS com regras propostas baseadas na fonte editorial `2026-09-23`. Separação entre critérios e blocos, tratamento explícito de N/D, versão das regras, quatro travas e decisões por estágio; cálculos e exemplos didáticos com divergência R$20/R$60 registrada; estrutura de aplicação, persistência privada, testes e documentação comunitária.

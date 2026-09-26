@@ -41,7 +41,7 @@ Fingerprints preservados: tabelas/RLS/grants `dba9c41f6230179ff3a77a51927db0e9`;
 
 ## Pendências explícitas
 
-- **Homologação autenticada completa:** a suíte real `tests/supabase/live.test.ts` existe, mas não foi executada porque Docker/Supabase local não estavam disponíveis. Testar duas contas, confirmação/recuperação, redirects, gravação/retomada/exportação/exclusão. Não confundir PGlite com validação de Auth/PostgREST. Nenhum usuário real foi usado para testes.
+- **Homologação autenticada completa:** autorizada em 26/09/2026. Gate descartável em preparação no workflow `auth.yml`: cinco testes Auth/PostgREST e jornada de navegador com dois usuários sintéticos. Resultado remoto ainda pendente neste registro. A homologação no Sites hospedado continua dependendo de dois e-mails autorizados e da conferência de SMTP/redirects; nenhum usuário de produção foi usado.
 - **E-mails de Auth:** os redirects precisam ser conferidos na allowlist do projeto compartilhado antes de liberar cadastro/recuperação ao público. A configuração global existente foi preservada.
 - **Licença e governança:** pacote `UNLICENSED`; titular, licença efetiva e termos de contribuição pendentes. Proteção de branch e regras obrigatórias de revisão/checks não foram criadas. Relato privado está habilitado, mas recebimento de teste, equipe dedicada e SLA não foram confirmados.
 
@@ -79,3 +79,9 @@ GitHub Private Vulnerability Reporting habilitado e confirmado na interface em 2
 A CI aprovada pertence ao commit identificado acima. Esta atualização posterior registra seu resultado e altera somente documentação; não constitui nova execução de testes. Os 128 testes aprovados não substituem a homologação real de Auth/PostgREST, confirmação/recuperação e redirects entre duas contas, que permanece pendente.
 
 Próximas etapas: [plano de execução](docs/next-steps.md).
+
+## Homologação Auth — preparação de 26/09/2026
+
+Configuração exclusivamente local corrigida: confirmação de e-mail obrigatória, redirects exatos de cadastro/recuperação, senha mínima de oito caracteres e cota local de 30 mensagens capturadas pelo Mailpit. Novo workflow usa containers descartáveis no GitHub Actions, sem credenciais hospedadas, mantendo administração fora do aplicativo. A suíte de navegador usa dois contextos, HTTP Astro e PostgREST reais; emails e traces não são publicados.
+
+Leituras do ambiente publicado: `/api/projects` respondeu `401` sem sessão; `/auth/v1/settings` confirmou cadastro por e-mail habilitado, confirmação obrigatória e acesso anônimo desabilitado. Sites permanece privado. Essas leituras não validam login, entrega de email ou isolamento entre contas no ambiente hospedado. Nenhuma configuração global de Auth, tabela existente, plano ou licença foi alterada.

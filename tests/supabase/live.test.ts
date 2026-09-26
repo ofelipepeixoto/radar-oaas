@@ -8,7 +8,7 @@ import { GET as exportProject } from "@/server-api/projects/[id]/export/route";
 import { createEmptyAssessment, type AssessmentInput } from "@/domain/framework/schema";
 
 // Explicit opt-in integration command. Never point this suite at a hosted project.
-let admin: SupabaseClient;
+let admin: SupabaseClient | undefined;
 let clientA: SupabaseClient;
 let clientB: SupabaseClient;
 let tokenA: string;
@@ -53,8 +53,28 @@ beforeAll(async () => {
 }, 30_000);
 
 afterAll(async () => {
-  for (const id of createdUsers) await admin.auth.admin.deleteUser(id);
-  vi.unstubAllEnvs();
+  let cleanupFailed = false;
+  try {
+    for (const client of [clientA, clientB]) {
+      if (client) {
+        try {
+          const signedOut = await client.auth.signOut();
+          cleanupFailed ||= Boolean(signedOut.error);
+        } catch { cleanupFailed = true; }
+      }
+    }
+    if (admin) {
+      for (const id of createdUsers) {
+        try {
+          const removed = await admin.auth.admin.deleteUser(id);
+          cleanupFailed ||= Boolean(removed.error);
+        } catch { cleanupFailed = true; }
+      }
+    }
+  } finally {
+    vi.unstubAllEnvs();
+  }
+  if (cleanupFailed) throw new Error("Local synthetic account cleanup failed; discard this local Supabase instance.");
 });
 
 describe("real local Supabase Auth, REST, API authorization and RLS", () => {

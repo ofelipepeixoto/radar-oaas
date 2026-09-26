@@ -11,6 +11,8 @@ Registro de execução atualizado em 26/09/2026. O MVP técnico existente é a b
 
 ## Ordem de execução
 
+O usuário aprovou iniciar a homologação técnica em 26/09/2026. Primeiro executar o gate Auth/PostgREST/Mailpit descartável no GitHub; depois concluir a jornada hospedada com dois endereços controlados pelo usuário, SMTP e redirects conferidos. Não aplicar licença MIT sem decisão explícita de titular e escopo. Ver resultado efetivo em STATUS.
+
 | Etapa | Entrega necessária | Evidência para avançar |
 | --- | --- | --- |
 | 1. Público e oferta | Selecionar um segmento inicial, identificar comprador e delimitar diagnóstico avulso com escopo e aceite | Hipóteses e critérios documentados; entrevistas e oferta autorizadas, sem presumir demanda |

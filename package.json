@@ -16,7 +16,8 @@
     "test:integration": "vitest run tests/integration",
     "test:e2e": "playwright test",
     "test": "npm run test:unit",
-    "test:supabase": "vitest run tests/supabase"
+    "test:supabase": "vitest run tests/supabase",
+    "test:auth": "playwright test --config playwright.auth.config.ts"
   },
   "dependencies": {
     "@astrojs/cloudflare": "14.3.3",
