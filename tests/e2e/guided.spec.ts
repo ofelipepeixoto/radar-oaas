@@ -26,6 +26,9 @@ async function readGuide(page: Page): Promise<DemoStore> {
 
 async function chooseUnknowns(page: Page) {
   const choices = page.getByRole('radio', { name: /^(Ainda não sei|Prefiro responder depois|Não tenho certeza)$/ });
+  // Astro renders a loading state before the React demo restores its draft.
+  // Wait for the actual question before enumerating its answer controls.
+  await expect(choices.first()).toBeVisible();
   expect(await choices.count(), 'Every question must offer an explicit way to remain uncertain.').toBeGreaterThan(0);
   for (const choice of await choices.all()) await choice.check();
 }

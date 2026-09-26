@@ -1,5 +1,16 @@
 # Próximos passos — Radar OaaS
 
+## Prioridade após o teste do usuário — UX
+
+A observação do proprietário em 26/09/2026 mostrou que a interface técnica dificultava a entrada. A jornada agora começa por quatro telas de escolhas e entrega um próximo passo curto; a avaliação completa é opcional. Esta mudança não demonstra demanda comercial.
+
+1. Observar cinco leigos usando uma ideia fictícia sem explicação prévia. Registrar onde pedem ajuda, abandonam, entendem a pergunta de outro modo ou não sabem o que fazer com o resultado. Roteiro: `auditoria-ux-2026-09-26.md`.
+2. Pedir que cada pessoa explique, com suas palavras, para quem é a ideia e qual ação fará depois. Medir clareza e utilidade antes de acrescentar formulários, IA ou cobrança.
+3. Concluir a homologação hospedada com duas contas dedicadas e os e-mails controlados pelo usuário; os testes locais não substituem SMTP e redirects do site privado.
+4. Com a entrada compreensível e o acesso homologado, testar uma oferta de diagnóstico assistido para um único público. Escolher preço, responsáveis e critérios antes do piloto; não tratar os valores ilustrativos como aprovados.
+5. Decidir serviço avulso ou recorrência a partir de pagamento, uso repetido e custo real de entrega. Manter Astro, Supabase Free compartilhado, acesso privado e IA paga desativada.
+
+
 Registro de execução atualizado em 26/09/2026. O MVP técnico existente é a base para homologação e validação comercial. Implementação, teste, publicação e evidência de mercado são estados distintos.
 
 ## Decisões preservadas
