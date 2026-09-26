@@ -4,7 +4,7 @@
 
 A aplicação usa **Astro7 com ilhas React e adaptador Cloudflare**, conforme instrução posterior do usuário. O destino atual é **Sites privado**. Consulte `STATUS.md` para criação/publicação, URL real, commit e validações; site criado não equivale a build/deploy aprovado.
 
-O repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) foi criado em 26/09/2026, branch `main`. Envio inicial do MVP em andamento; CI remota ainda não executada. Licença do código e titular continuam pendentes; conferir os próximos resultados em `STATUS.md`. Supabase está no projeto compartilhado autorizado `radar-disruptivo`, com objetos `public.oaas_*` e schema interno `oaas_private`. A criação dedicada Free inicial foi bloqueada por cota, sem upgrade pago.
+O repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) foi criado em 26/09/2026, branch `main`. O MVP foi publicado no commit `5e53d58210f81afed34b436f069a7ab55e83c3e4` e a [CI remota](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36221322124) foi aprovada (`completed` / `success`). Licença do código e titular continuam pendentes; resultados e limites estão em `STATUS.md`. Supabase está no projeto compartilhado autorizado `radar-disruptivo`, com objetos `public.oaas_*` e schema interno `oaas_private`. A criação dedicada Free inicial foi bloqueada por cota, sem upgrade pago.
 
 ## Desenvolvimento e build local
 
@@ -58,15 +58,15 @@ A migração cria tabelas/funções próprias `public.oaas_*` e `oaas_private`. 
 
 Auth, recursos de banco, conexões, cotas e disponibilidade são compartilhados. Prefixos/RLS separam dados e objetos de aplicação, mas não asseguram isolamento de carga ou disponibilidade. Exclusão de projeto OaaS não exclui conta global de Auth. Testar os fluxos reais com duas identidades sem afetar usuários/dados do outro produto.
 
-## GitHub: repositório criado e envio inicial
+## GitHub: MVP publicado e CI aprovada
 
-Repositório público criado e confirmado em 26/09/2026: [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas), branch `main`, commit inicial de README `7bf59c62774c482563ddcccec1e1cb6fea2900b0`. O envio inicial do MVP está em andamento; a CI remota ainda não foi executada. O pacote permanece `UNLICENSED`; proposta MIT, titular e termos para contribuição não estão aprovados.
+Repositório público criado e confirmado em 26/09/2026: [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas), branch `main`, commit inicial de README `7bf59c62774c482563ddcccec1e1cb6fea2900b0`. O MVP foi publicado no commit `5e53d58210f81afed34b436f069a7ab55e83c3e4` e a [CI remota](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36221322124) foi aprovada (`completed` / `success`). O pacote permanece `UNLICENSED`; proposta MIT, titular e termos para contribuição não estão aprovados.
 
 A cópia de publicação parte de `git archive` do commit Sites `cb9cf548908f4fec935d11cf029987f58e4c9ce6`. Ela preserva código, migrações, testes e workflow, exclui o vínculo particular `.openai/hosting.json` e acrescenta `/.openai/` ao `.gitignore`. Não contém `.env`, chaves, banco, conteúdo privado nem DOCX original.
 
 O checkout Sites possui vínculo Git próprio e deve permanecer intacto. A publicação GitHub usa uma cópia separada; não reinicializar nem substituir o remote do Sites. Uma implantação nova exige configurar seu próprio destino e suas variáveis.
 
-Após enviar o MVP, confirmar os arquivos, o SHA remoto e todos os jobs da execução de CI daquele commit. Conta e visibilidade pública já foram confirmadas na criação. Configurar PR/revisão, checks obrigatórios, proteção contra force push/deleção e relato privado de vulnerabilidade quando disponíveis. Forks não recebem segredos nem executam código em contexto privilegiado. Workflow presente não prova CI remota aprovada. Publicar código não publica dados privados nem altera a visibilidade do Sites.
+Os 197 arquivos publicados foram conferidos contra a cópia preparada, com conteúdo idêntico e SHA do commit confirmado. Conta, branch `main` e visibilidade pública foram confirmadas. A execução de CI citada concluiu todos os gates com sucesso. Relato privado de vulnerabilidades está habilitado; proteção de branch e regras obrigatórias de revisão/checks ainda não foram criadas. Forks não recebem segredos nem executam código em contexto privilegiado. Workflow presente não prova CI remota aprovada. Publicar código não publica dados privados nem altera a visibilidade do Sites.
 
 ## VPS e recuperação
 

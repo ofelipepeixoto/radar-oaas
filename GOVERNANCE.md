@@ -1,6 +1,6 @@
 # Governança
 
-Estado: repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) criado em 26/09/2026, branch `main`; envio inicial do MVP em andamento, CI remota ainda não executada. A conta de destino está definida, mas titular de direitos, licença efetiva, responsáveis operacionais e termos de contribuição permanecem pendentes. A conta que hospeda o repositório não constitui, por si só, atribuição de copyright.
+Estado: repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) criado em 26/09/2026, branch `main`; MVP publicado no commit `5e53d58210f81afed34b436f069a7ab55e83c3e4`, com [CI remota aprovada](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36221322124). A conta de destino está definida, mas titular de direitos, licença efetiva, responsáveis operacionais e termos de contribuição permanecem pendentes. A conta que hospeda o repositório não constitui, por si só, atribuição de copyright.
 
 ## Responsabilidades e definições pendentes
 
@@ -22,7 +22,7 @@ Propostas precisam de problema, referência à fonte, marcação `framework` ou 
 
 Fluxo previsto: fork → branch → pull request → revisão → CI → aprovação → merge → release com changelog. Mudanças de código sem efeito em regras devem explicar essa ausência de impacto. Labels propostas: `good first issue`, `help wanted`, `bug`, `accessibility`, `documentation`, `tests`, `methodology`, `security`. A preparação de templates não significa que labels, issues ou regras de proteção já foram criadas no GitHub.
 
-No primeiro release público, aplicar proteção de branch com revisão e verificações obrigatórias, proibir force push e deleção quando o plano permitir. CI de forks não recebe segredos e não executa conteúdo não confiável em contexto privilegiado. Controles não disponíveis devem constar no status do release, sem simular equivalência.
+Proteção de branch e regras de revisão/verificações obrigatórias não foram criadas nesta entrega. Sua configuração, incluindo bloqueio de force push e deleção quando o plano permitir, permanece pendente antes de promover um release com esses controles. CI de forks não recebe segredos e não executa conteúdo não confiável em contexto privilegiado. Controles não disponíveis devem constar no status do release, sem simular equivalência.
 
 ## Conflitos
 

@@ -7,7 +7,7 @@ Registro de execução atualizado em 26/09/2026. O MVP técnico existente é a b
 - Astro com ilhas React; hospedagem Sites privada.
 - Supabase no plano gratuito, com objetos próprios e RLS no projeto compartilhado autorizado. Auth, capacidade e cotas continuam compartilhados; não há garantia de isolamento de recursos.
 - Domínio determinístico, regras explicáveis e exemplos sintéticos. IA generativa é opcional e permanece desativada; nenhuma chave ou consumo pago faz parte desta preparação.
-- Repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) criado em 26/09/2026, branch `main`. Envio inicial do MVP em andamento; CI remota ainda não executada. Licença efetiva e titular continuam pendentes; manter `UNLICENSED` até decisão explícita.
+- Repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) criado em 26/09/2026, branch `main`. O MVP foi publicado no commit `5e53d58210f81afed34b436f069a7ab55e83c3e4` e a [CI remota](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36221322124) foi aprovada (`completed` / `success`). Licença efetiva e titular continuam pendentes; manter `UNLICENSED` até decisão explícita.
 
 ## Ordem de execução
 
@@ -19,7 +19,7 @@ Registro de execução atualizado em 26/09/2026. O MVP técnico existente é a b
 | 4. Piloto comercial | Diagnóstico assistido com organizações independentes do mesmo segmento | Medir pagamento independente de venda de implementação, utilidade frente à linha de base, horas humanas, custos e oportunidade de repetição |
 | 5. Decisão do modelo | Confrontar os resultados observados com as hipóteses | Manter serviço avulso, testar assinatura, ajustar oferta ou interromper, conforme evidência |
 
-A conclusão dos fluxos técnicos e das condições de uso de dados precede a coleta de dados reais de participantes externos. PGlite, testes de demonstração e publicação Sites não substituem a homologação autenticada entre duas contas. A preparação GitHub pode avançar em paralelo à preparação comercial; sua criação não comprova aptidão para uso de dados reais.
+A conclusão dos fluxos técnicos e das condições de uso de dados precede a coleta de dados reais de participantes externos. PGlite, testes de demonstração e publicação Sites não substituem a homologação autenticada entre duas contas. O MVP já está publicado no GitHub e tem CI aprovada no commit registrado acima; isso não comprova aptidão para uso de dados reais nem encerra a preparação comercial.
 
 ## Piloto proposto
 

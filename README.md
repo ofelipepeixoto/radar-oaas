@@ -8,7 +8,7 @@ O produto organiza evidências e usa regras determinísticas explicáveis. Funci
 
 ## Estado da entrega
 
-A aplicação foi portada para Astro por solicitação do usuário; o destino de hospedagem é **Sites privado**, com adaptador Cloudflare. Consulte [STATUS.md](STATUS.md) para estado de publicação, comandos efetivamente executados e limitações. Testes anteriores à migração de framework não comprovam o build ou os endpoints Astro. O repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) foi criado em 26/09/2026, com branch `main`. O envio inicial do MVP está em andamento; a CI remota ainda não foi executada. A licença definitiva e seu titular continuam pendentes.
+A aplicação foi portada para Astro por solicitação do usuário; o destino de hospedagem é **Sites privado**, com adaptador Cloudflare. Consulte [STATUS.md](STATUS.md) para estado de publicação, comandos efetivamente executados e limitações. Testes anteriores à migração de framework não comprovam o build ou os endpoints Astro. O repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) foi criado em 26/09/2026, com branch `main`. O MVP foi publicado no commit `5e53d58210f81afed34b436f069a7ab55e83c3e4` e a [CI remota](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36221322124) foi aprovada (`completed` / `success`). A licença definitiva e seu titular continuam pendentes.
 
 **Supabase:** a criação inicial de projeto dedicado Free foi bloqueada por cota (`BLOCKED_FREE_PROJECT_QUOTA`). Posteriormente, o usuário autorizou usar o projeto existente `radar-disruptivo`, com objetos próprios `public.oaas_*` e schema interno `oaas_private`. Veja o resultado real da aplicação remota em [STATUS.md](STATUS.md). Auth, recursos e cotas são compartilhados; prefixos/RLS separam objetos e acesso, mas não garantem isolamento de capacidade ou disponibilidade. Nenhum plano pago foi contratado.
 
@@ -89,7 +89,7 @@ npm run build
 
 ## Código público e dados privados
 
-A cópia preparada para o GitHub contém código, regras documentadas, migrações, testes e exemplos sintéticos. O vínculo particular de implantação Sites foi excluído dessa cópia. Projetos, evidências, avaliações, experimentos e exports pertencem ao proprietário e não serão publicados automaticamente. O DOCX original e sua extração integral não integram o pacote.
+O código publicado no GitHub contém regras documentadas, migrações, testes e exemplos sintéticos. O vínculo particular de implantação Sites foi excluído dessa cópia. Projetos, evidências, avaliações, experimentos e exports pertencem ao proprietário e não serão publicados automaticamente. O DOCX original e sua extração integral não integram o pacote.
 
 Consulte [privacidade](docs/privacy.md), [segurança](SECURITY.md), [arquitetura](docs/architecture.md) e [deploy](docs/deployment.md). A aprovação técnica não valida estatisticamente a metodologia; o piloto do avaliador está [documentado separadamente](docs/evaluator-pilot.md).
 

@@ -1,6 +1,6 @@
 # Estado verificável — 26/09/2026
 
-MVP experimental **Radar OaaS — Avaliador de Prontidão**. Stack vigente: Astro 7.3.5, React 19.2.6, TypeScript e adaptador Cloudflare 14.3.3. Sites privado é o destino de hospedagem. O repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) foi criado em 26/09/2026; envio inicial do MVP em andamento e CI remota ainda não executada. Licença definitiva e titular continuam pendentes. Não houve contratação de plano pago nem uso da API paga da OpenAI.
+MVP experimental **Radar OaaS — Avaliador de Prontidão**. Stack vigente: Astro 7.3.5, React 19.2.6, TypeScript e adaptador Cloudflare 14.3.3. Sites privado é o destino de hospedagem. O repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) foi criado em 26/09/2026; MVP publicado no commit `5e53d58210f81afed34b436f069a7ab55e83c3e4` e [CI remota aprovada](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36221322124). Licença definitiva e titular continuam pendentes. Não houve contratação de plano pago nem uso da API paga da OpenAI.
 
 ## Implementado
 
@@ -43,8 +43,8 @@ Fingerprints preservados: tabelas/RLS/grants `dba9c41f6230179ff3a77a51927db0e9`;
 
 - **Homologação autenticada completa:** a suíte real `tests/supabase/live.test.ts` existe, mas não foi executada porque Docker/Supabase local não estavam disponíveis. Testar duas contas, confirmação/recuperação, redirects, gravação/retomada/exportação/exclusão. Não confundir PGlite com validação de Auth/PostgREST. Nenhum usuário real foi usado para testes.
 - **E-mails de Auth:** os redirects precisam ser conferidos na allowlist do projeto compartilhado antes de liberar cadastro/recuperação ao público. A configuração global existente foi preservada.
-- **GitHub e CI remota:** repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) criado e confirmado em 26/09/2026, branch `main`, commit inicial de README `7bf59c62774c482563ddcccec1e1cb6fea2900b0`. Envio inicial do MVP em andamento; CI remota ainda não executada. A cópia parte do commit Sites `cb9cf548908f4fec935d11cf029987f58e4c9ce6`, sem o vínculo particular `.openai/hosting.json`, preservando código, migração e workflow. Licença efetiva e titular continuam pendentes; pacote `UNLICENSED`.
-- **Relato de segurança:** GitHub Private Vulnerability Reporting habilitado em 26/09/2026 e confirmado na interface do repositório. Canal pela aba Security/opção de relato privado. Recebimento de teste, equipe dedicada e SLA não foram confirmados.
+- **Licença e governança:** pacote `UNLICENSED`; titular, licença efetiva e termos de contribuição pendentes. Proteção de branch e regras obrigatórias de revisão/checks não foram criadas. Relato privado está habilitado, mas recebimento de teste, equipe dedicada e SLA não foram confirmados.
+
 - **OpenAI:** adaptador de Responses preparado, mas IA real desativada (`AI_PROVIDER=simulated`, `AI_ENABLED=false`). Chave/modelo não configurados; consumo pago zero nesta implementação. Limites de tokens não equivalem a teto monetário.
 - **WebMCP:** duas ações opcionais implementadas; o navegador de verificação não disponibiliza `document.modelContext`. Validação funcional indisponível; a interface comum funciona sem essa capacidade.
 - **VPS:** não modificada. Uma alternativa Node exigiria adaptador e implantação específicos; os arquivos de container incompatíveis foram retirados.
@@ -54,6 +54,28 @@ Fingerprints preservados: tabelas/RLS/grants `dba9c41f6230179ff3a77a51927db0e9`;
 
 Publicação Sites confirmada com status terminal `succeeded` para o commit `cb9cf548908f4fec935d11cf029987f58e4c9ce6`. Endereço: https://radar-oaas.radarjacarepagua.chatgpt.site. A visibilidade permanece privada. Publicação técnica não encerra a homologação de Supabase Auth/PostgREST nem valida o produto comercialmente.
 
-A preparação GitHub desta cópia altera somente documentação e a exclusão do vínculo particular Sites; não altera aplicação, testes, migração ou workflow. Por isso, a suíte completa não foi reexecutada por essa mudança documental. A comparação de integridade com o commit de origem e a CI remota devem ser registradas separadamente.
+## Publicação GitHub e CI remota
+
+Repositório público: [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas), branch `main`. Commit inicial de README: `7bf59c62774c482563ddcccec1e1cb6fea2900b0`. MVP publicado no commit **`5e53d58210f81afed34b436f069a7ab55e83c3e4`**, com **197 arquivos versionados**, conferidos contra a cópia preparada sem divergências de conteúdo. Árvore Git: `4d071e2a5638a17f611a916710e42c00cf5dfd16`.
+
+A origem é o commit Sites `cb9cf548908f4fec935d11cf029987f58e4c9ce6`; o vínculo particular `.openai/hosting.json` foi excluído da publicação GitHub. Aplicação, migração, testes, dependências e workflow foram preservados. As diferenças são documentais e de ignore do vínculo Sites.
+
+**[Execução GitHub Actions 36221322124](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36221322124)**: status `completed`, conclusão `success`, no commit do MVP acima, em Ubuntu com Node.js 24.
+
+| Gate remoto | Resultado |
+| --- | --- |
+| `npm ci` | Aprovado |
+| Lint e verificação de tipos | Aprovados |
+| Testes unitários e adaptador IA | 104 aprovados |
+| Integração SQL/RLS e fronteira HTTP | 14 aprovados |
+| Build Astro/Cloudflare | Aprovado |
+| Instalação padrão Chromium/Playwright | Aprovada |
+| E2E em navegador | 10 aprovados |
+
+A execução exibiu avisos não bloqueantes sobre runtimes das actions checkout/setup-node v4 (Node.js 20 forçado para 24) e migração da imagem `ubuntu-latest`. Revisar esses runtimes em manutenção futura; o workflow foi preservado e a CI concluiu com sucesso.
+
+GitHub Private Vulnerability Reporting habilitado e confirmado na interface em 26/09/2026. Canal pela aba Security/opção de relato privado. Proteção de branch e regras obrigatórias de revisão/checks **não foram criadas**. O pacote permanece `UNLICENSED`; titular e licença efetiva continuam pendentes.
+
+A CI aprovada pertence ao commit identificado acima. Esta atualização posterior registra seu resultado e altera somente documentação; não constitui nova execução de testes. Os 128 testes aprovados não substituem a homologação real de Auth/PostgREST, confirmação/recuperação e redirects entre duas contas, que permanece pendente.
 
 Próximas etapas: [plano de execução](docs/next-steps.md).

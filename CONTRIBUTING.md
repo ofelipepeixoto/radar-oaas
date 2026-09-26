@@ -1,6 +1,6 @@
 # Como contribuir
 
-O repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) foi criado em 26/09/2026. O envio inicial do MVP está em andamento e a CI remota ainda não foi executada. Licença, titular e termos para contribuições continuam pendentes. Consulte [GOVERNANCE.md](GOVERNANCE.md) e [LICENSE-PROPOSED.md](LICENSE-PROPOSED.md). O fluxo abaixo está preparado para quando os termos de colaboração forem definidos; a criação do repositório não concede uma licença MIT nem autoriza presumir termos de contribuição.
+O repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) foi criado em 26/09/2026. O MVP foi publicado no commit `5e53d58210f81afed34b436f069a7ab55e83c3e4` e a [CI remota](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36221322124) foi aprovada (`completed` / `success`). Licença, titular e termos para contribuições continuam pendentes. Consulte [GOVERNANCE.md](GOVERNANCE.md) e [LICENSE-PROPOSED.md](LICENSE-PROPOSED.md). O fluxo abaixo está preparado para quando os termos de colaboração forem definidos; a criação do repositório não concede uma licença MIT nem autoriza presumir termos de contribuição.
 
 1. Leia README, metodologia e questões da fonte.
 2. Escolha uma issue existente ou descreva o problema; tarefas introdutórias usarão `good first issue` e pedidos de apoio `help wanted`.
