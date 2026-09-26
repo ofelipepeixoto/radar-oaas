@@ -124,7 +124,8 @@ async function login(page: Page, email: string, password: string) {
 async function api(method: string, path: string, token?: string, body?: unknown) {
   return fetch(`${appOrigin}${path}`, {
     method,
-    headers: { ...(token ? { Authorization: `Bearer ${token}` } : {}), ...(body !== undefined ? { 'Content-Type': 'application/json' } : {}) },
+    // Browser fetch includes Origin for unsafe methods. Preserve Astro's CSRF check.
+    headers: { Origin: appOrigin, ...(token ? { Authorization: `Bearer ${token}` } : {}), ...(body !== undefined ? { 'Content-Type': 'application/json' } : {}) },
     ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
     signal: AbortSignal.timeout(10_000),
   });
@@ -264,9 +265,15 @@ test('duas contas: cadastro confirmado, HTTP e RLS isolados, recuperação e sa�
       await expect.poll(() => new URL(page.url()).pathname).toBe('/conta');
       expect(Boolean(await session(page))).toBe(false);
     }
-  } catch {
+  } catch (error) {
     // Playwright/network errors may embed passwords, Authorization or email link tokens.
-    failure = new Error(`Disposable Auth verification failed during: ${stage}. Sensitive diagnostics were suppressed.`);
+    // Retain only a source line and primitive assertion values for actionable diagnostics.
+    const line = error instanceof Error ? error.stack?.match(/access\.spec\.ts:(\d+):(\d+)/)?.[1] : undefined;
+    const matcher = typeof error === 'object' && error !== null && 'matcherResult' in error
+      ? error.matcherResult as { actual?: unknown; expected?: unknown } : undefined;
+    const primitive = (value: unknown) => typeof value === 'number' || typeof value === 'boolean' ? String(value) : 'suppressed';
+    const assertion = matcher ? ` Expected ${primitive(matcher.expected)}, received ${primitive(matcher.actual)}.` : '';
+    failure = new Error(`Disposable Auth verification failed during: ${stage}. Source line ${line ?? 'unavailable'}.${assertion} Sensitive diagnostics were suppressed.`);
   } finally {
     for (const context of contexts) await context.close().catch(() => undefined);
     for (const id of createdUsers) {
