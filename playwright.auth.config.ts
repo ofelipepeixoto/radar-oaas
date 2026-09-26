@@ -1,5 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
 
+// Playwright 1.58 also creates an AI page snapshot on failure independently of
+// tracing. Its bundled runner supports this flag; Auth pages must stay private.
+process.env.PLAYWRIGHT_NO_COPY_PROMPT = '1';
+
 // This suite never targets Sites or the shared hosted Supabase project.
 function requireLoopback(name: string, value: string | undefined): string {
   if (!value) throw new Error(`${name} is required for disposable local Auth verification.`);
