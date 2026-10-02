@@ -56,9 +56,9 @@ async function completeGuide(page: Page) {
 test.describe('Entrada guiada — escolhas simples, persistência e aprofundamento opcional', () => {
   test('apresenta a proposta antes do formulário e separa projeto privado de demonstração', async ({ page }) => {
     await page.goto('/');
-    await heading(page, 'Descubra o próximo passo da sua ideia.');
-    await expect(page.getByRole('link', { name: 'Começar meu projeto', exact: true }).first()).toHaveAttribute('href', '/projetos');
-    await page.getByRole('link', { name: 'Experimentar sem conta', exact: true }).first().click();
+    await heading(page, 'Qual é o primeiro teste da sua ideia de serviço com IA?');
+    await expect(page.getByRole('link', { name: 'Começar sem cadastro', exact: true }).first()).toHaveAttribute('href', '/avaliar');
+    await page.goto('/demo');
     await heading(page, 'Para quem é a sua ideia?');
     await expect(page.getByRole('radio', { checked: true })).toHaveCount(0);
     await expect(page.getByRole('textbox')).toHaveCount(0);

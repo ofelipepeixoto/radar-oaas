@@ -1,13 +1,13 @@
 # Governança
 
-Estado: repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) criado em 26/09/2026, branch `main`; MVP publicado no commit `5e53d58210f81afed34b436f069a7ab55e83c3e4`, com [CI remota aprovada](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36221322124). A conta de destino está definida, mas titular de direitos, licença efetiva, responsáveis operacionais e termos de contribuição permanecem pendentes. A conta que hospeda o repositório não constitui, por si só, atribuição de copyright.
+Estado: repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) criado em 26/09/2026, branch `main`; MVP publicado no commit `5e53d58210f81afed34b436f069a7ab55e83c3e4`, com [CI remota aprovada](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36221322124). Em 02/10/2026 o proprietário autorizou MIT para o código original, com atribuição à conta proprietária ofelipepeixoto e contribuidores. Framework, marca e materiais editoriais ficam excluídos; veja LICENSE e NOTICE. Responsáveis operacionais adicionais continuam a confirmar.
 
 ## Responsabilidades e definições pendentes
 
 | Papel | Responsabilidade | Estado |
 | --- | --- | --- |
 | Conta de destino | Hospedagem e administração do repositório | `ofelipepeixoto/radar-oaas`, repositório público criado |
-| Titular dos direitos | Licença e atribuição de copyright | A confirmar |
+| Código original | MIT autorizada pelo proprietário | Conta ofelipepeixoto e contribuidores; NOTICE delimita exclusões |
 | Responsável de metodologia | Fonte, versões, divergências e aprovação de rubricas | A confirmar |
 | Responsável técnico | Revisão, testes, publicação e recuperação | A confirmar |
 | Contato de segurança | Canal privado e coordenação de correções | Relato privado GitHub habilitado em 26/09/2026; responsável e prazo de resposta a confirmar |

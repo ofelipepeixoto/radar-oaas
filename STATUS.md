@@ -1,3 +1,21 @@
+# MVP público — 02/10/2026
+
+Implementação em `feat/public-first-test`, sem merge implícito. `/avaliar` funciona sem cadastro ou IA paga, com quatro etapas, desconhecido separado de reprovação, plano de três passos, copiar, corrigir e apagar. MIT autorizada pelo proprietário; LICENSE e NOTICE delimitam o código e as exclusões.
+
+Fontes reconciliadas: Sites `b97d446348194e0f127e65d19aa023dfa98f1926` e GitHub `3c0581c` têm o mesmo código; três diferenças posteriores de documentação/teste no GitHub foram preservadas. A versão publicada existente era v2 e acesso custom somente proprietário. Leitura integral do framework recebido nesta rodada: 15 páginas, 496 linhas, Library `libfile_a789b10e301881918c14cce7702d1ce3`. DOCX não foi publicado.
+
+Verificações locais (Node 24.19.0, Chromium): lint e tipos aprovados (13 avisos informativos legados de depreciação); 129 testes unitários/IA, 14 de integração PostgreSQL WASM; build Astro/Cloudflare e build estático aprovados. Dois testes públicos passaram também no pacote estático real (desktop, 375 e 320 px, teclado, incompletos, não sei, copiar, editar, recarregar, apagar, exemplo separado e ausência de requests privados). Suíte completa: 18 testes de navegador aprovados em execução sequencial (45,9 s). CI remota será consultada após o commit. Uma primeira execução completa durante builds concorrentes falhou no cache Vite e no layout do progresso; layout corrigido e execução repetida em sequência.
+
+`out` contém só três HTML e assets: sem Worker, `/api`, `/conta`, `/projetos`, URLs Supabase, chaves ou cliente de banco. Build completo e fontes privadas preservados. A publicação isolada não disponibiliza a interface avançada privada; dados Supabase e snapshots não são alterados. Homologação hospedada com duas contas/e-mail e testes com cinco leigos permanecem pendentes.
+
+Publicação confirmada: Sites versão 3, commit canônico `576a00dd3b0ee48e775fa459c41c5d3d01fb4d72`, implantação `appgdep_6ac03a661dd081918da48162ded3389f`, status `succeeded`. URL: https://radar-oaas.radarjacarepagua.chatgpt.site. Acesso `public` confirmado pelo get_site, revisão 2. O pacote estático foi implantado ainda sob acesso privado e só depois liberado, evitando expor a versão privada anterior.
+
+Acesso deslogado externo não pôde ser testado deste executor: o proxy respondeu `CONNECT tunnel failed, response 403` e o leitor web informou URL inacessível. Isso não foi um erro HTTP da aplicação. Não se afirma que houve teste de navegador em produção. Os fluxos foram testados sobre os bytes do pacote publicado; a saída reconstruída em `out/` coincidiu byte a byte.
+
+Draft PR: https://github.com/ofelipepeixoto/radar-oaas/pull/1, sem merge. A CI Qualidade do MVP do commit inicial `55934e7` passou (run 37076260367); a CI do último commit deve ser consultada, sem herdar esse resultado. CLI GitHub retornou token inválido/Forbidden; usado o conector autenticado da conta correta. Helpers Sites ausentes no bootstrap; o fluxo nativo foi executado com clone/push autenticado efêmero via stdin, confirmação do SHA remoto, arquivo estático, save version e deploy. Primeira tentativa de pacote recusou o nome `public-dist`; corrigido para o diretório permitido `out` antes de salvar. Nenhuma mudança de conta, OAuth ou Supabase.
+
+## Histórico anterior
+
 # Estado verificável — 26/09/2026
 
 ## Jornada guiada — atualização de UX

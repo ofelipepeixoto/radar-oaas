@@ -46,6 +46,7 @@ export const guidedAnswersSchema = z.object({
  currentMethod:z.enum(['team','provider','tool','unknown']).optional(),
  verification:z.enum(['inspect','compare','measure','unknown']).optional(),
  sensitive:z.enum(['yes','no','unknown']).optional(),
+ control:z.enum(['own','third_party','unknown']).optional(),
 }).strict();
 export const guidedIntakeSchema = z.object({
  version:z.literal(1),step:z.number().int().min(0).max(4),answers:guidedAnswersSchema,
