@@ -57,3 +57,6 @@ next-env.d.ts
 
 # Vínculo particular de implantação Sites; configurar separadamente.
 /.openai/
+
+.public-build/
+public-dist/

@@ -6,11 +6,21 @@ O produto organiza evidências e usa regras determinísticas explicáveis. Funci
 
 > Avaliação estratégica experimental baseada nas informações registradas. Não constitui certificação, parecer profissional ou garantia de resultado.
 
-## Estado da entrega
+## Comece sem cadastro
 
-A aplicação foi portada para Astro por solicitação do usuário; o destino de hospedagem é **Sites privado**, com adaptador Cloudflare. Consulte [STATUS.md](STATUS.md) para estado de publicação, comandos efetivamente executados e limitações. Testes anteriores à migração de framework não comprovam o build ou os endpoints Astro. O repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) foi criado em 26/09/2026, com branch `main`. O MVP foi publicado no commit `5e53d58210f81afed34b436f069a7ab55e83c3e4` e a [CI remota](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36221322124) foi aprovada (`completed` / `success`). A licença definitiva e seu titular continuam pendentes.
+A entrada `/avaliar` apresenta quatro etapas de escolhas: público, entrega, descobertas e cuidados. O resultado mostra uma lacuna prioritária, um teste com três passos, o registro esperado e como decidir depois. Você pode copiar, corrigir ou apagar o plano. “Não sei” não recebe nota zero. Não há chamada de IA, coleta de leads nem envio das respostas ao servidor; o rascunho fica no navegador. Não inclua dados confidenciais. O exemplo guiado tem armazenamento separado.
 
-**Supabase:** a criação inicial de projeto dedicado Free foi bloqueada por cota (`BLOCKED_FREE_PROJECT_QUOTA`). Posteriormente, o usuário autorizou usar o projeto existente `radar-disruptivo`, com objetos próprios `public.oaas_*` e schema interno `oaas_private`. Veja o resultado real da aplicação remota em [STATUS.md](STATUS.md). Auth, recursos e cotas são compartilhados; prefixos/RLS separam objetos e acesso, mas não garantem isolamento de capacidade ou disponibilidade. Nenhum plano pago foi contratado.
+O guia público usa regras transparentes `0.2.0-proposta_mvp`. O motor avançado continua `0.1.0-experimental`, com projetos, evidências e snapshots preservados. A interpretação é autoral do Radar Disruptivo, informada pela [tese pública da Sequoia](https://sequoiacap.com/article/services-the-new-software) e pesquisas da ARK, sem vínculo ou endosso dessas instituições. Não é um avaliador de investimento validado.
+
+## Publicação e privacidade
+
+O repositório é público. A implantação e a CI desta revisão estão registradas em [STATUS.md](STATUS.md); não presuma que a branch de uma proposta já está publicada.
+
+`npm run build` preserva o aplicativo completo Astro/Cloudflare. `npm run build:public` cria em `public-dist/` uma superfície estática isolada com apenas `/`, `/avaliar` e `/metodologia`. Ela não contém servidor, autenticação, API, banco, credenciais nem rotas privadas. O modo avançado e privado continua no código e no build completo, mas não integra esse pacote público. Não se alteram o Supabase compartilhado ou os dados existentes. Homologação de duas contas/e-mail hospedados continua pendente.
+
+## Licença
+
+O proprietário autorizou MIT para o código original em 02/10/2026. Consulte [LICENSE](LICENSE) e [NOTICE.md](NOTICE.md). Framework original, marca, DOCX e materiais editoriais/terceiros ficam fora dessa concessão. Dependências e `vendor/` conservam suas licenças. O DOCX não integra o repositório.
 
 ## O que o aplicativo faz
 
@@ -34,7 +44,7 @@ npm ci
 npm run dev
 ```
 
-Abra `http://localhost:3000`: a página inicial apresenta o avaliador demonstrativo diretamente. `/demo` também abre a demonstração. Os exemplos de conciliação financeira, preparação de NDA e provisionamento de usuários são inteiramente fictícios. O modo demonstrativo não grava no banco privado nem chama provedor real de IA. Não insira dados confidenciais nos exemplos.
+Abra `http://localhost:3000` e escolha **Começar sem cadastro**. `/avaliar` abre o guia, `/avaliar?exemplo=1` o exemplo guiado, e `/demo` preserva a demonstração avançada no build completo. Os exemplos de conciliação financeira, preparação de NDA e provisionamento de usuários são inteiramente fictícios. O modo demonstrativo não grava no banco privado nem chama provedor real de IA. Não insira dados confidenciais nos exemplos.
 
 ## Modo privado com Supabase local
 

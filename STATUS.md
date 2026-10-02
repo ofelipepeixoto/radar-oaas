@@ -1,3 +1,17 @@
+# MVP público — 02/10/2026
+
+Implementação em `feat/public-first-test`, sem merge implícito. `/avaliar` funciona sem cadastro ou IA paga, com quatro etapas, desconhecido separado de reprovação, plano de três passos, copiar, corrigir e apagar. MIT autorizada pelo proprietário; LICENSE e NOTICE delimitam o código e as exclusões.
+
+Fontes reconciliadas: Sites `b97d446348194e0f127e65d19aa023dfa98f1926` e GitHub `3c0581c` têm o mesmo código; três diferenças posteriores de documentação/teste no GitHub foram preservadas. A versão publicada existente era v2 e acesso custom somente proprietário. Leitura integral do framework recebido nesta rodada: 15 páginas, 496 linhas, Library `libfile_a789b10e301881918c14cce7702d1ce3`. DOCX não foi publicado.
+
+Verificações locais (Node 24.19.0, Chromium): lint e tipos aprovados (13 avisos informativos legados de depreciação); 129 testes unitários/IA, 14 de integração PostgreSQL WASM; build Astro/Cloudflare e build estático aprovados. Dois testes públicos passaram também no pacote estático real (desktop, 375 e 320 px, teclado, incompletos, não sei, copiar, editar, recarregar, apagar, exemplo separado e ausência de requests privados). Suíte completa: 18 testes de navegador aprovados em execução sequencial (45,9 s). CI remota será consultada após o commit. Uma primeira execução completa durante builds concorrentes falhou no cache Vite e no layout do progresso; layout corrigido e execução repetida em sequência.
+
+`public-dist` contém só três HTML e assets: sem Worker, `/api`, `/conta`, `/projetos`, URLs Supabase, chaves ou cliente de banco. Build completo e fontes privadas preservados. A publicação isolada não disponibiliza a interface avançada privada; dados Supabase e snapshots não são alterados. Homologação hospedada com duas contas/e-mail e testes com cinco leigos permanecem pendentes.
+
+Publicação desta revisão: ainda não confirmada neste registro; não interpretar a existência do código como deploy. CLI GitHub retornou token inválido/Forbidden; conector autenticado da conta ofelipepeixoto funciona. Helpers Sites ausentes no bootstrap; conectores nativos e checkout canônico disponíveis.
+
+## Histórico anterior
+
 # Estado verificável — 26/09/2026
 
 ## Jornada guiada — atualização de UX

@@ -87,3 +87,11 @@ Destino autorizado: `ofelipepeixoto/radar-oaas`. A cópia preserva aplicação, 
 | Salvar e retomar sem perda | `guidedIntake` opcional e patch de campos administrados | Unidade: drafts legados e edição manual; navegador: voltar/recarregar; Auth: GET privado após reload |
 | Não interferir no Radar | Nenhuma alteração SQL, RLS ou Auth; draft JSONB existente | Diff da implementação; suíte de isolamento continua obrigatória |
 | Tornar produto compreensível para vender | Auditoria e roteiro de teste em `auditoria-ux-2026-09-26.md` | Teste com cinco leigos e validação comercial ainda pendentes; nenhuma alegação de PMF |
+
+## MVP público — 02/10/2026
+
+- `public-journey.tsx` e `/avaliar`: entrada sem login, armazenamento local separado, exemplo guiado, copiar, editar e apagar; `tests/e2e/public.spec.ts`.
+- `guided.ts`: precedência de dependência de terceiros/aceite/alternativa atual, três passos e limites; `tests/unit/guided.test.ts`, 11 casos adicionais de precedência.
+- `scripts/build-public.mjs`: pacote estático sem endpoints ou rotas privadas; código avançado preservado.
+- LICENSE/NOTICE: MIT autorizada para código original; exclusões explícitas.
+- Fonte reconciliada: Sites b97d446 e GitHub 3c0581c compartilham código; GitHub tem documentação e espera de hidratação mais recentes, preservadas.

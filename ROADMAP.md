@@ -1,3 +1,15 @@
+# Roadmap do MVP público
+
+As etapas são prioridades, não promessas de prazo ou evidência de demanda.
+
+1. **Primeiro teste sem cadastro:** quatro etapas por escolhas, não sei, exemplo separado, plano com três passos, copiar, editar/apagar, regras transparentes e pacote estático sem APIs. Implementação nesta branch; publicação e gates em STATUS.
+2. **Aprender com uso:** observar cinco leigos, registrar dúvidas sem dados sensíveis, testar clareza do resultado e modelos de tarefas. Critério proposto: a pessoa explica o próximo teste sem ajuda. Piloto ainda não realizado.
+3. **Aprofundar quando houver necessidade:** registro opcional do que foi observado e acesso avançado privado após homologação hospedada entre duas contas. Preservar snapshots, custos e evidências; nenhuma dependência paga obrigatória.
+
+Boas primeiras contribuições: exemplos de entregas delimitadas, revisão de linguagem, testes de teclado/zoom e melhoria de mensagens de armazenamento indisponível. Abra issue com problema, caso sintético e resultado esperado; não publique respostas de usuários.
+
+## Histórico do planejamento anterior
+
 # Roadmap
 
 Este roadmap descreve trabalho do aplicativo. O plano de 90 dias mostrado ao usuário é sobre o projeto que ele avalia.

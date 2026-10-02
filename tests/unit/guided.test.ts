@@ -180,3 +180,30 @@ describe('guided intake declarations', () => {
   expect(getGuidedSummary(noWork).uncertainty).toContain('escolher uma única tarefa');
  });
 });
+
+
+describe('public planning precedence, proposta_mvp 0.2.0',()=>{
+ const base:GuidedAnswers={audience:'small_business',work:'documents',currentMethod:'team',traction:'paid',verification:'inspect',control:'own',sensitive:'no'};
+ it.each([
+  [{sensitive:'unknown',audience:'unknown'},'Primeiro, descubra'],
+  [{sensitive:'yes',control:'third_party'},'Antes de testar'],
+  [{audience:'unknown',control:'third_party'},'Escolha um tipo'],
+  [{control:'third_party',verification:'unknown'},'Separe o trabalho'],
+  [{control:'unknown'},'Separe o trabalho'],
+  [{verification:'unknown'},'Mostre um exemplo fictício'],
+  [{currentMethod:'unknown'},'Investigue um caso recente'],
+  [{traction:'none'},'Converse com uma pessoa'],
+  [{traction:'conversations'},'Volte a uma dessas pessoas'],
+  [{traction:'test'},'Converse com quem participou'],
+  [{traction:'paid'},'Revise uma entrega já paga'],
+ ] as [Partial<GuidedAnswers>,string][] )('chooses the earliest unresolved condition %j',(patch,prefix)=>{
+  const original=createEmptyAssessment('synthetic-public-test');
+  const draft=applyGuidedAnswers(original,{...base,...patch},4);
+  const summary=getGuidedSummary(draft);
+  expect(summary.action.startsWith(prefix)).toBe(true);
+  expect(summary.steps).toHaveLength(3);
+  expect(summary.record.length).toBeGreaterThan(10);
+  expect(summary.decision.length).toBeGreaterThan(10);
+  expect(evaluateAssessment(draft)).toEqual(evaluateAssessment(original));
+ });
+});

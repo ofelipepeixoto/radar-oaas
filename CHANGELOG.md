@@ -1,3 +1,7 @@
+# 02/10/2026 — Primeiro teste sem cadastro
+
+Jornada pública isolada, plano copiável em três passos, escolhas desconhecidas, controle da entrega e aceite antes de tração, reinício local e exemplo separado. MIT autorizada para código original. Motor avançado e dados privados preservados; sem migrações ou IA paga.
+
 # Changelog
 
 ## 2026-09-26 — entrada guiada e clareza do primeiro resultado

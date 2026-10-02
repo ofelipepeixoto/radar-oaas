@@ -17,7 +17,8 @@
     "test:e2e": "playwright test",
     "test": "npm run test:unit",
     "test:supabase": "vitest run tests/supabase",
-    "test:auth": "playwright test --config playwright.auth.config.ts"
+    "test:auth": "playwright test --config playwright.auth.config.ts",
+    "build:public": "node scripts/build-public.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "14.3.3",
@@ -76,6 +77,6 @@
       "sharp": "0.35.4"
     }
   },
-  "description": "Avaliador experimental de prontidão Outcome as a Service",
-  "license": "UNLICENSED"
+  "description": "Avaliador experimental de prontid\u00e3o Outcome as a Service",
+  "license": "MIT"
 }

@@ -48,6 +48,11 @@ export const guidedOptions = {
   {value:'measure',label:'Confere uma medida combinada antes'},
   {value:'unknown',label:'Ainda não sei'},
  ],
+ control: [
+  {value:'own',label:'Posso entregar e conferir o trabalho combinado'},
+  {value:'third_party',label:'Depende de uma aprovação, compra ou decisão de outra pessoa'},
+  {value:'unknown',label:'Ainda não sei'},
+ ],
  sensitive: [
   {value:'yes',label:'Sim',description:'Por exemplo: dados pessoais, dinheiro, saúde ou decisões jurídicas.'},
   {value:'no',label:'Não, pelo que sei'},
@@ -116,7 +121,8 @@ export function applyGuidedAnswers(draft: AssessmentInput, answers: GuidedAnswer
  return next;
 }
 
-export type GuidedSummary = {summary:string;uncertainty:string;action:string;questions:string[];gaps:string[]};
+export const GUIDED_RULES_VERSION = '0.2.0-proposta_mvp';
+export type GuidedSummary = {summary:string;uncertainty:string;action:string;questions:string[];gaps:string[];steps:string[];record:string;decision:string};
 
 /** A plain-language planning aid; never a replacement for the assessment engine. */
 export function getGuidedSummary(draft: AssessmentInput): GuidedSummary {
@@ -154,6 +160,18 @@ export function getGuidedSummary(draft: AssessmentInput): GuidedSummary {
    : 'Ainda falta escolher uma única tarefa para saber o que você conseguiria entregar e conferir.';
   action = !audience ? 'Escolha um tipo de pessoa ou empresa para conversar primeiro.' : 'Escolha uma única tarefa que você conseguiria demonstrar com um exemplo simples.';
   questions = ['Quem enfrenta esse problema?', 'Qual tarefa essa pessoa precisa resolver?', 'Como ela faz isso hoje?'];
+ } else if (answers.control === 'third_party' || answers.control === 'unknown') {
+  uncertainty = 'O resultado prometido pode depender de uma decisão que você não controla.';
+  action = 'Separe o trabalho que você pode entregar da decisão de outra pessoa.';
+  questions = ['Qual parte você consegue concluir e conferir?', 'Quem toma a decisão final?', 'Que entrega útil existe mesmo sem essa decisão?'];
+ } else if (!answers.verification || answers.verification === 'unknown') {
+  uncertainty = 'Ainda falta combinar o que faz uma entrega ser aceita.';
+  action = 'Mostre um exemplo fictício e combine como conferir uma boa entrega.';
+  questions = ['O que precisa estar presente?', 'Que erro tornaria a entrega inaceitável?', 'Duas pessoas chegariam à mesma conclusão ao conferir?'];
+ } else if (!answers.currentMethod || answers.currentMethod === 'unknown') {
+  uncertainty = 'Ainda não sabemos como esse trabalho é resolvido hoje.';
+  action = 'Investigue um caso recente e a alternativa que o cliente já usa.';
+  questions = ['Como esse trabalho foi feito da última vez?', 'Quanto tempo, gasto e retrabalho envolveu?', 'Quem escolhe e paga pela alternativa atual?'];
  } else if (answers.traction === 'paid') {
   uncertainty = 'Ainda precisamos entender se a entrega pode ser repetida, com novo pagamento e um custo que faça sentido.';
   action = 'Revise uma entrega já paga: registre o que foi aceito, quanto tempo levou e quais gastos teve antes de tentar repetir.';
@@ -174,5 +192,12 @@ export function getGuidedSummary(draft: AssessmentInput): GuidedSummary {
  const proposals = mappedAnswers(answers);
  const hasPreservedText = managedKeys.some(key => proposals[key] !== undefined && draft.canvas[key].trim() && draft.canvas[key] !== proposals[key]);
  if (hasPreservedText) uncertainty += ' Seus textos anteriores foram preservados no projeto; confira os detalhes antes de registrar um diagnóstico.';
- return {summary,uncertainty,action,questions,gaps};
+ const steps = [
+  answers.sensitive !== 'no' ? 'Prepare um caso fictício, sem dados pessoais ou confidenciais.' : 'Escolha um único caso e uma pessoa desse público para conversar.',
+  `Investigue com a pessoa: ${questions.join(' ')}`,
+  'Anote o que observou, o que ainda é hipótese e o próximo acordo com a pessoa.',
+ ];
+ const record = answers.traction === 'paid' && answers.sensitive === 'no' ? 'Entrega aceita, pagamento, todos os gastos, horas humanas, correções e interesse em repetir.' : 'Um caso concreto, a resposta às três perguntas e o que faria você mudar de ideia.';
+ const decision = answers.sensitive !== 'no' ? 'Continue com exemplos fictícios até esclarecer autorização, revisão e riscos. Isso não reprova a ideia.' : 'Avance apenas no ponto esclarecido. Se a entrega não for útil ou não puder ser conferida, ajuste o recorte e teste novamente. Estas respostas não autorizam escala.';
+ return {summary,uncertainty,action,questions,gaps,steps,record,decision};
 }
