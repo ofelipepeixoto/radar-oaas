@@ -16,7 +16,7 @@ O guia público usa regras transparentes `0.2.0-proposta_mvp`. O motor avançado
 
 O repositório é público. A implantação e a CI desta revisão estão registradas em [STATUS.md](STATUS.md); não presuma que a branch de uma proposta já está publicada.
 
-`npm run build` preserva o aplicativo completo Astro/Cloudflare. `npm run build:public` cria em `public-dist/` uma superfície estática isolada com apenas `/`, `/avaliar` e `/metodologia`. Ela não contém servidor, autenticação, API, banco, credenciais nem rotas privadas. O modo avançado e privado continua no código e no build completo, mas não integra esse pacote público. Não se alteram o Supabase compartilhado ou os dados existentes. Homologação de duas contas/e-mail hospedados continua pendente.
+`npm run build` preserva o aplicativo completo Astro/Cloudflare. `npm run build:public` cria em `out/` uma superfície estática isolada com apenas `/`, `/avaliar` e `/metodologia`. Ela não contém servidor, autenticação, API, banco, credenciais nem rotas privadas. O modo avançado e privado continua no código e no build completo, mas não integra esse pacote público. Não se alteram o Supabase compartilhado ou os dados existentes. Homologação de duas contas/e-mail hospedados continua pendente.
 
 ## Licença
 
