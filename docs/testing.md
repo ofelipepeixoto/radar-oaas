@@ -94,3 +94,9 @@ Workflow de pull request deve rodar lint, tipos, unitários, integração, naveg
 Aceite técnico exige jornada funcional, testes críticos, cálculos reproduzíveis, privacidade verificada e documentação executável. Não equivale a validação estatística; o piloto do avaliador possui protocolo separado. Conserve evidência de falhas e bloqueios no status, especialmente Auth real, build container e deploy quando não executados.
 
 `tests/unit/comparison.test.ts` cobre comparabilidade, ausência de dados, preservação de versões, sinais de esforço/qualidade/onboarding, transferência de trabalho ao cliente, independência de score e plano de90dias editável. Nenhuma comparação prova causalidade.
+
+## Recuperação de UX com fixtures locais
+
+`npm run test:ux` inicia seu próprio Astro loopback em 3100. Não fornecer `PLAYWRIGHT_BASE_URL`; alvos remotos são recusados. Sessão e API são fixtures sintéticas e tráfego externo é bloqueado. A suíte não valida Auth/RLS ou banco reais; use os gates separados acima.
+
+Doze casos: GET temporariamente indisponível, criação incerta com nome preservado, projeto negado sem formulário, 401 ao salvar guia, retry explícito de rascunho, edição bloqueada durante gravação, login recusado com recuperação e reflow em 640/375/320 px, erro JSON arbitrário sem exposição, listagem 200 incompatível preservada, criação 200 malformada/incompatível e bloqueio durante gravação anterior à assistência opcional. Execute servidores de desenvolvimento sequencialmente no mesmo checkout para não disputar o cache Vite. Ver [baseline e protocolo humano](ux-recovery-2026-10-03.md).
