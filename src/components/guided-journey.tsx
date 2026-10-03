@@ -1,15 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { ErrorNotice } from './private-feedback';
 import Link from './navigation';
 import { applyGuidedAnswers, getGuidedSummary, guidedOptions, type GuidedAnswers } from '@/domain/framework/guided';
 import type { AssessmentInput } from '@/domain/framework/schema';
 
 type ChoiceKey = 'audience' | 'work' | 'benefit' | 'traction' | 'currentMethod' | 'verification' | 'sensitive';
-type Props = { data: AssessmentInput; name: string; demo: boolean; busy: boolean; dirty: boolean; error: string; savedLabel: string; onChange: (draft: AssessmentInput) => void; onName: (value: string) => void; onPersist: (draft: AssessmentInput) => Promise<boolean>; onAdvanced: () => void };
+type Props = { data: AssessmentInput; name: string; demo: boolean; busy: boolean; dirty: boolean; error: string; savedLabel: string; recovery?: ReactNode; onChange: (draft: AssessmentInput) => void; onName: (value: string) => void; onPersist: (draft: AssessmentInput) => Promise<boolean>; onAdvanced: () => void };
 const titles = ['Para quem é a sua ideia?', 'O que você quer melhorar?', 'O que você já descobriu?', 'Como saber se deu certo?', 'Sua ideia, com um próximo passo.'];
 const descriptions = ['Escolha o público que você tem em mente. Pode mudar depois.', 'Escolha um trabalho e a melhoria que você gostaria de oferecer.', 'Conte em que ponto você está. Não precisa ter todas as respostas.', 'Pense no que o cliente poderia conferir ao receber sua entrega.'];
 const labels: Record<ChoiceKey,string> = {audience:'Quem você quer ajudar?',work:'Qual trabalho você quer ajudar a resolver?',benefit:'Qual melhoria importa mais?',traction:'Você já apresentou essa ideia a alguém?',currentMethod:'Como esse trabalho é feito hoje?',verification:'Como o cliente perceberia que deu certo?',sensitive:'A entrega envolve informações pessoais ou decisões importantes?'};
 
-export function GuidedJourney({data,name,demo,busy,dirty,error,savedLabel,onChange,onName,onPersist,onAdvanced}:Props) {
+export function GuidedJourney({data,name,demo,busy,dirty,error,savedLabel,recovery,onChange,onName,onPersist,onAdvanced}:Props) {
   const step = data.guidedIntake?.step ?? 0;
   const answers = data.guidedIntake?.answers ?? {};
   const heading = useRef<HTMLHeadingElement>(null);
@@ -33,7 +34,7 @@ export function GuidedJourney({data,name,demo,busy,dirty,error,savedLabel,onChan
     {key==='audience'&&answers.audience==='other'&&<label className="field guide-other"><span>Qual público?</span><input value={answers.audienceOther??''} maxLength={180} onChange={e=>change('audienceOther',e.target.value)} placeholder="Ex.: donos de pequenas padarias"/><small>Uma frase curta é suficiente.</small></label>}
     {key==='work'&&answers.work==='other'&&<label className="field guide-other"><span>Qual trabalho?</span><input value={answers.workOther??''} maxLength={180} onChange={e=>change('workOther',e.target.value)} placeholder="Ex.: organizar pedidos recebidos por mensagem"/><small>Descreva só o trabalho que você tem em mente.</small></label>}
   </fieldset>;
-  return <main id="conteudo" className="guide-shell">
+  return <main id="conteudo" className="guide-shell" aria-busy={busy}>
     <div className="guide-top"><Link href={demo?'/':'/projetos'} className="text-link">{demo?'← Início':'← Meus projetos'}</Link><span>{demo?'Demonstração':'Projeto privado'}</span></div>
     {demo&&<p className="guide-demo"><strong>Experimente com uma ideia fictícia.</strong> Não insira dados reais ou confidenciais. As respostas ficam só neste navegador.</p>}
     <div className="guide-progress" aria-label={step<4?`Etapa ${step+1} de 4`:'Resumo das suas respostas'}><span>{step<4?`Etapa ${step+1} de 4`:'Seu próximo passo'}</span><ol aria-label="Progresso do preenchimento">{['Cliente','Entrega','Descobertas','Resultado'].map((label,i)=><li key={label} className={i<=step?'is-current':''} aria-current={i===step?'step':undefined}><span>{label}</span></li>)}</ol></div>
@@ -50,9 +51,9 @@ export function GuidedJourney({data,name,demo,busy,dirty,error,savedLabel,onChan
         <p className="guide-limit">Esta preparação não é uma aprovação do projeto. Notas, comprovações e histórico continuam na avaliação detalhada.</p>
       </>}
     </div>
-    {(error||validation)&&<div role="alert" className="error-box">{error||validation}</div>}
+    {(error||validation)&&<ErrorNotice message={error||validation}>{error&&recovery}</ErrorNotice>}
     <div className="guide-navigation">{step>0?<button className="button button-light" disabled={busy} onClick={()=>void move(step===4?0:step-1)}>{step===4?'Corrigir respostas':'Voltar'}</button>:<span/>}{step<4?<button className="button button-dark" disabled={busy} onClick={()=>void move(step+1)}>{busy?'Salvando…':step===3?'Ver meu próximo passo':'Continuar'} <span aria-hidden="true">→</span></button>:<button className="button button-dark" disabled={busy} onClick={async()=>{if(await onPersist(data))window.location.assign(demo?'/':'/projetos')}}>{busy?'Salvando…':'Salvar e sair'}</button>}</div>
     <div className="guide-save"><span role="status">{dirty?'Alterações não salvas':savedLabel}</span>{step<4&&<button className="text-link" disabled={busy} onClick={async()=>{if(await onPersist(data))window.location.assign(demo?'/':'/projetos')}}>Salvar e sair</button>}</div>
-    <div className="guide-extras"><details className="guide-details"><summary>Nome do projeto</summary><label className="field"><span>Como você quer chamar esta ideia?</span><input maxLength={120} value={name} onChange={e=>onName(e.target.value)}/></label></details><button className="text-link" onClick={onAdvanced} disabled={busy}>Aprofundar avaliação <span aria-hidden="true">↗</span></button></div>
+    <div className="guide-extras"><details className="guide-details"><summary>Nome do projeto</summary><label className="field"><span>Como você quer chamar esta ideia?</span><input disabled={busy} maxLength={120} value={name} onChange={e=>onName(e.target.value)}/></label></details><button className="text-link" onClick={onAdvanced} disabled={busy}>Aprofundar avaliação <span aria-hidden="true">↗</span></button></div>
   </main>;
 }

@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-10-03 — recuperação de falhas e continuidade
+
+- Leitura privada com ação de atualizar/retentar e falha distinguida de lista vazia.
+- Criação incerta preserva nome e orienta conferir a lista, sem retry automático.
+- Sessão expirada preserva respostas e oferece autenticação em outra aba.
+- Erros Auth em português, foco no alerta, estado de carregamento e bloqueio de edição durante gravação.
+- Fronteiras cliente e doze regressões UX com fixtures; nenhum SQL, regra de domínio ou configuração hospedada alterados.
+- Controle Gitleaks com política da base, job de fixtures, histórico completo e relatórios sanitizados; licença geral preservada.
+- Baseline, evidência e protocolo humano documentados; integração real e publicação têm gates próprios.
+
 ## 2026-09-26 — entrada guiada e clareza do primeiro resultado
 
 - Página inicial orientada ao valor; projeto privado e demonstração fictícia separados.

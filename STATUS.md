@@ -1,5 +1,13 @@
 # Estado verificável — 26/09/2026
 
+## 03/10/2026 — recuperação de falhas de UX
+
+Melhoria local baseada em `3c0581c0e2997879c2830926caad1ebbf6f4ef01`: carregamento com retry explícito; criação com nome preservado e conferência antes de repetir pedido incerto; sessão expirada ao salvar com respostas preservadas e login em outra aba; falha de acesso com próximo passo; mensagens Auth em português e foco no alerta. Edição bloqueada durante gravação evita marcar texto posterior como salvo. Sem mudança de domínio, autorização do servidor, RLS, migração, Auth global ou IA paga.
+
+Verificações locais: lint e typecheck aprovados (13 hints, zero erros); 132 unitários/IA e doze casos UX passaram após o endurecimento adicional. Anteriormente passaram 14 integração PGlite/API e 16 E2E existentes na versão local `a2669c94`; esses gates não foram repetidos localmente após os ajustes de cliente. A CI remota deve repetir o E2E completo no novo commit. A suíte nova `test:ux` verifica doze casos com sessão/API mockadas em loopback; não representa integração Auth/RLS real. Build Astro/Cloudflare local aprovado. Controle Gitleaks 8.30.1 replicado com base confiável, onze fixtures aprovadas e relatório de histórico sanitizado registrado separadamente. Licença geral `UNLICENSED` preservada; somente os controles originais e scanner têm avisos MIT próprios. Resultados desta rodada e protocolo humano em [UX e recuperação](docs/ux-recovery-2026-10-03.md).
+
+CI remota do novo commit, homologação de duas contas locais reais após esta mudança, deploy Sites, teste de zoom/leitor de tela e protocolo com leigos permanecem pendentes nesta entrada. Resultados históricos abaixo mantêm seus commits específicos. As métricas humanas ainda não foram medidas.
+
 ## Jornada guiada — atualização de UX
 
 A entrada agora explica a proposta e separa projeto privado de exemplo fictício. O guia tem quatro etapas por escolhas, sem opções pré-marcadas: cliente, entrega, descobertas e resultado. Texto livre aparece em “Outro”; nome é opcional na criação. O primeiro resultado reúne a intenção, uma dúvida principal e uma ação com perguntas de preparação. Avaliação completa segue acessível em “Aprofundar avaliação”.

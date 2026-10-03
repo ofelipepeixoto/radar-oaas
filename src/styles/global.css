@@ -20,3 +20,17 @@
 body{font-size:16px}.field input,.field select,.field textarea{font-size:16px}.source-code,.result-meta,.review-note{font-size:12px}
 
 .canvas-guidance{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin:28px 0 22px}.canvas-guidance .subheading{margin:0 0 8px}.canvas-guidance p,.canvas-guidance small{font-size:14px;color:var(--muted);margin:8px 0}.canvas-guidance button{flex-shrink:0}.canvas-guidance .progress-copy{color:var(--ink);font-weight:500}.next-action{display:flex;gap:24px;justify-content:space-between;align-items:center;border:1px solid var(--line);border-left:4px solid #8faf55;padding:22px;margin:22px 0;border-radius:8px}.next-action h3{font-size:20px;line-height:1.4;margin:12px 0 8px}.next-action p{font-size:14px;margin:0;color:var(--muted)}.next-action button{flex-shrink:0}.decision-reason{margin:16px 0}.decision-reason summary{cursor:pointer;font-size:14px}.decision-reason p{font-size:14px;line-height:1.7}@media(max-width:760px){.canvas-guidance,.next-action{flex-direction:column;gap:14px}.next-action{padding:18px}}
+
+/* Original recovery patterns: one next action, visible focus and narrow screens. */
+.request-fields{border:0;padding:0;margin:0;min-width:0}
+.request-feedback{margin:18px 0;text-align:left}
+.request-feedback .error-box{margin:0;overflow-wrap:anywhere}
+.request-help{padding:0 4px;font-size:16px;line-height:1.6}
+.request-help p{margin:12px 0}
+.request-help .button{margin-bottom:8px}
+.request-feedback [role=alert]:focus{outline:3px solid #557731;outline-offset:4px}
+.project-list-actions{display:flex;justify-content:flex-end;margin:20px 0 0}
+.recovery-actions{justify-content:center;flex-wrap:wrap;gap:12px}
+.project-card h2,.workspace-heading h1{overflow-wrap:anywhere}
+@media(max-width:760px){.projects-main .button-row{flex-wrap:wrap;margin-top:18px!important}.request-help .button,.recovery-actions .button{white-space:normal;text-align:center;max-width:100%}}
+@media(prefers-reduced-motion:reduce){.spinner{animation:none}}

@@ -87,3 +87,21 @@ Destino autorizado: `ofelipepeixoto/radar-oaas`. A cópia preserva aplicação, 
 | Salvar e retomar sem perda | `guidedIntake` opcional e patch de campos administrados | Unidade: drafts legados e edição manual; navegador: voltar/recarregar; Auth: GET privado após reload |
 | Não interferir no Radar | Nenhuma alteração SQL, RLS ou Auth; draft JSONB existente | Diff da implementação; suíte de isolamento continua obrigatória |
 | Tornar produto compreensível para vender | Auditoria e roteiro de teste em `auditoria-ux-2026-09-26.md` | Teste com cinco leigos e validação comercial ainda pendentes; nenhuma alegação de PMF |
+
+## 03/10/2026 — fronteira de UX e recuperação
+
+- `src/components/private-api.ts`: status de falha e uma chamada HTTP com timeout, sem retry automático.
+- `src/components/private-feedback.tsx`, views privadas, account e workbench: próximo passo, foco, preservação em memória e edição bloqueada enquanto salva.
+- `src/components/private-response.ts`: shapes da lista e ID criado validados antes de state/navegação; JSON inesperado tem mensagem local.
+- `src/lib/auth-feedback.ts`: mensagens Auth por código, sem diagnóstico bruto do provedor.
+- `tests/unit/private-api.test.ts`: ausência de cliente/sessão, falha de lookup, HTML inesperado, códigos 401/403/404/429/503, resposta inválida, rede sem repetição e mensagem Auth.
+- `tests/ux/recovery.spec.ts` e `playwright.ux.config.ts`: doze regressões com UI real e backend/sessão mockados. Evidência e limites em `docs/ux-recovery-2026-10-03.md`.
+- Sem alteração em engine, cálculos, snapshots, migrações, autorização de servidor ou políticas RLS.
+
+## Controle de segredos — bootstrap local
+
+- `.github/workflows/segredos.yml`: política/código da base, conteúdo de PR somente como dados Git.
+- `.github/workflows/segredos-fixtures.yml`: onze fixtures sintéticas; não certifica histórico real como limpo.
+- `.security/gitleaks.toml`, scripts de instalação e scan: release 8.30.1 com SHA-256 fixo, bare mirror, redaction e saída sanitizada; scanner incompleto bloqueia.
+- `tests/test_secrets.py`: arquivos limpos, marcador sintético, erro de configuração, segredo removido, gap multipart/verbose reproduzido, bypass de política de PR, mirror de refs e shallow/timeout.
+- `licenses/`: MIT de scanner e controles próprios; licença geral do pacote continua `UNLICENSED`.

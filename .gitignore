@@ -57,3 +57,7 @@ next-env.d.ts
 
 # Vínculo particular de implantação Sites; configurar separadamente.
 /.openai/
+
+# Python scanner fixture caches
+__pycache__/
+*.py[cod]
