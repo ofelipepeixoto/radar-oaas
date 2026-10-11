@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { ErrorNotice } from './private-feedback';
 import Link from './navigation';
+import { downloadText, safeFilename } from '@/lib/exports/report';
 import { applyGuidedAnswers, getGuidedSummary, guidedOptions, type GuidedAnswers } from '@/domain/framework/guided';
 import type { AssessmentInput } from '@/domain/framework/schema';
 
 type ChoiceKey = 'audience' | 'work' | 'benefit' | 'traction' | 'currentMethod' | 'verification' | 'sensitive';
-type Props = { data: AssessmentInput; name: string; demo: boolean; busy: boolean; dirty: boolean; error: string; savedLabel: string; recovery?: ReactNode; onChange: (draft: AssessmentInput) => void; onName: (value: string) => void; onPersist: (draft: AssessmentInput) => Promise<boolean>; onAdvanced: () => void };
+type Props = { data: AssessmentInput; name: string; demo: boolean; busy: boolean; dirty: boolean; error: string; savedLabel: string; recovery?: ReactNode; onChange: (draft: AssessmentInput) => void; onName: (value: string) => void; onPersist: (draft: AssessmentInput) => Promise<boolean>; onAdvanced: () => void; onEvidence: () => void };
 const titles = ['Para quem é a sua ideia?', 'O que você quer melhorar?', 'O que você já descobriu?', 'Como saber se deu certo?', 'Sua ideia, com um próximo passo.'];
 const descriptions = ['Escolha o público que você tem em mente. Pode mudar depois.', 'Escolha um trabalho e a melhoria que você gostaria de oferecer.', 'Conte em que ponto você está. Não precisa ter todas as respostas.', 'Pense no que o cliente poderia conferir ao receber sua entrega.'];
 const labels: Record<ChoiceKey,string> = {audience:'Quem você quer ajudar?',work:'Qual trabalho você quer ajudar a resolver?',benefit:'Qual melhoria importa mais?',traction:'Você já apresentou essa ideia a alguém?',currentMethod:'Como esse trabalho é feito hoje?',verification:'Como o cliente perceberia que deu certo?',sensitive:'A entrega envolve informações pessoais ou decisões importantes?'};
 
-export function GuidedJourney({data,name,demo,busy,dirty,error,savedLabel,recovery,onChange,onName,onPersist,onAdvanced}:Props) {
+export function GuidedJourney({data,name,demo,busy,dirty,error,savedLabel,recovery,onChange,onName,onPersist,onAdvanced,onEvidence}:Props) {
   const step = data.guidedIntake?.step ?? 0;
   const answers = data.guidedIntake?.answers ?? {};
   const heading = useRef<HTMLHeadingElement>(null);
@@ -26,6 +27,22 @@ export function GuidedJourney({data,name,demo,busy,dirty,error,savedLabel,recove
   };
   const move = async(next:number) => {if(next>step&&!valid())return;setValidation('');await onPersist(applyGuidedAnswers(data,answers,next));};
   const summary = getGuidedSummary(data);
+  const downloadPlan = () => {
+    const plan = [
+      `# ${name || 'Minha ideia'} — plano de teste`,
+      demo ? 'Demonstração com dados fictícios.' : 'Rascunho de preparação do projeto.',
+      summary.summary,
+      `Dúvida a investigar: ${summary.uncertainty}`,
+      `Próximo passo: ${summary.action}`,
+      '## Perguntas para o teste',
+      ...summary.questions.map((question, index) => `${index + 1}. ${question}`),
+      '## Registro a preencher depois',
+      'Fonte e data: __\nO que observei: __\nAlegação investigada: __\nResultado: favorável / desfavorável / inconclusivo\nO que falta confirmar: __',
+      'Ainda não sei indica informação ausente; não é evidência desfavorável. Respostas do guia não comprovam resultados.',
+      'Este plano não é um diagnóstico, uma aprovação ou autorização para usar dados reais. Registre e revise as evidências antes de avaliar.',
+    ].join('\n\n');
+    downloadText(`${safeFilename(name)}-plano-de-teste.md`, plan, 'text/markdown;charset=utf-8');
+  };
   const choice = (key:ChoiceKey) => <fieldset className="guide-question" key={key} disabled={busy}>
     <legend>{labels[key]}</legend>
     <div className="choice-grid">{guidedOptions[key].map(option=><label className={`choice-card${answers[key]===option.value?' is-selected':''}`} key={option.value}>
@@ -44,7 +61,7 @@ export function GuidedJourney({data,name,demo,busy,dirty,error,savedLabel,recove
       {step<4?<>{groups[step].map(choice)}{step===3&&answers.sensitive&&answers.sensitive!=='no'&&<p className="guide-context">No próximo passo, vamos começar pelas condições de um teste seguro e por exemplos fictícios.</p>}</>:<>
         <section className="guide-summary"><span className="eyebrow dark-eyebrow">O QUE VOCÊ QUER CONSTRUIR</span><h2>{summary.summary}</h2><p><strong>Principal dúvida:</strong> {summary.uncertainty}</p><small>Resumo das suas respostas. Resultados ainda precisam ser observados.</small></section>
         <section className="guide-action"><span className="eyebrow">SEU PRÓXIMO PASSO</span><h2>{summary.action}</h2><button className="button button-lime" onClick={()=>setPrepared(v=>!v)} aria-expanded={prepared} aria-controls="guide-test">{prepared?'Recolher preparação':'Preparar meu próximo teste'} <span aria-hidden="true">→</span></button>
-          {prepared&&<div id="guide-test" className="guide-test"><h3>Leve estas perguntas com você</h3><ol>{summary.questions.map(q=><li key={q}>{q}</li>)}</ol><p>Depois da conversa ou teste, registre o que aconteceu em “Aprofundar avaliação” → “Evidências”.</p></div>}
+          {prepared&&<div id="guide-test" className="guide-test"><h3>Leve estas perguntas com você</h3><ol>{summary.questions.map(q=><li key={q}>{q}</li>)}</ol><p>Registre fonte, data, o que foi observado e se o resultado sustenta ou contradiz a ideia. Se não for possível concluir, marque como inconclusivo.</p><p>“Ainda não sei” indica uma informação ausente, não um resultado desfavorável.</p><div className="button-row"><button className="button button-light" disabled={busy} onClick={downloadPlan}>Baixar plano de teste</button><button className="button button-dark" disabled={busy} onClick={onEvidence}>Registrar o que observei</button></div></div>}
         </section>
         {!!summary.gaps.length&&<details className="guide-details"><summary>O que ainda vale esclarecer</summary><ul>{summary.gaps.slice(0,3).map(gap=><li key={gap}>{gap}</li>)}</ul></details>}
         <details className="guide-details"><summary>Rever minhas respostas</summary><dl>{(Object.keys(labels) as ChoiceKey[]).map(key=><div key={key}><dt>{labels[key]}</dt><dd>{answers[key]==='other'?(key==='audience'?answers.audienceOther:answers.workOther):guidedOptions[key].find(o=>o.value===answers[key])?.label??'Ainda não respondido'}</dd></div>)}</dl></details>
