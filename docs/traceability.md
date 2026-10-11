@@ -110,3 +110,7 @@ Destino autorizado: `ofelipepeixoto/radar-oaas`. A cópia preserva aplicação, 
 ## Documentação de portfólio — 11/10/2026 UTC
 
 `README_EN.md` e `docs/portfolio/CASE_STUDY.md` → onboarding em inglês e evidência delimitada; `docs/portfolio/RECORDING.md`, `demo.png` e `demo.mp4` → gravação gerada da interface local sintética; `CONTRIBUTING.md` e `.github/ISSUE_TEMPLATE/contribution.yml` → propostas pequenas com critérios de aceite. Origem: apresentação do portfólio, sem mudança da metodologia ou regra versionada. Verificação: 132 testes unitários/IA e percurso de browser selecionado; Auth/RLS real, produção e ganho econômico não validados por esta rodada.
+
+## 2026-10-11 — Do próximo teste ao registro
+
+Guia: src/components/guided-journey.tsx → download local do plano e ação de registro. Destino/foco: src/components/workbench.tsx. Evidência da própria versão: src/components/assessment-report.tsx. Critérios verificáveis: tests/e2e/guided.spec.ts (3 novos casos). Auditoria e limitações: docs/ux-audit-2026-10-11.md. Sem alteração de domínio, pesos, finanças, permissões ou publicação. CI pendente no momento da preparação; nenhum teste local alegado.

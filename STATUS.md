@@ -112,3 +112,7 @@ Cobertura executada: duas contas criadas pela UI e confirmadas pelo Mailpit; aus
 Tentativas anteriores permaneceram registradas: `36222460714` e `36222889868` falharam no seletor de senha, cujo rótulo concatena o texto de ajuda; `36223109102` avançou até a verificação B e revelou que o helper HTTP precisava enviar `Origin` em DELETE, como o navegador. Corrigidos somente os testes, mantendo a proteção CSRF do Astro e as expectativas de isolamento. Os cinco testes Auth/PostgREST passaram nessas tentativas. Não foi necessário alterar código do aplicativo ou migração.
 
 Leituras do ambiente publicado: `/api/projects` respondeu `401` sem sessão; `/auth/v1/settings` confirmou cadastro por e-mail habilitado, confirmação obrigatória e acesso anônimo desabilitado. Sites permanece privado. Essas leituras não validam login, entrega de email ou isolamento entre contas no ambiente hospedado. Nenhuma configuração global de Auth, tabela existente, plano ou licença foi alterada.
+
+## Proposta UX — 2026-10-11
+
+Base baec47048c2b14d2ae135967e5961425f4aa84a9. Executor indisponível; nenhum comando local ou teste de navegador executado nesta sessão. Três E2E adicionados para exportação, teclado/foco e 320px; execução e SHA devem ser conferidos na CI do novo PR. Não herdar status de testes antigos. Auditoria: docs/ux-audit-2026-10-11.md.

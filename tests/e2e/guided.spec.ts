@@ -185,3 +185,54 @@ test.describe('Entrada guiada — escolhas simples, persistência e aprofundamen
     await expect(page.getByRole('radio', { name: 'Pequenas empresas', exact: true })).toBeChecked();
   });
 });
+
+test.describe('Do guia à observação — sem fabricar evidências', () => {
+  test('exporta um plano portátil com perguntas e um registro ainda em branco', async ({ page }) => {
+    await completeGuide(page);
+    await page.getByRole('button', { name: 'Preparar meu próximo teste', exact: true }).click();
+    const downloadEvent = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Baixar plano de teste', exact: true }).click();
+    const download = await downloadEvent;
+    expect(download.suggestedFilename()).toMatch(/-plano-de-teste\.md$/);
+    const stream = await download.createReadStream();
+    expect(stream).not.toBeNull();
+    const chunks: Buffer[] = [];
+    for await (const chunk of stream!) chunks.push(Buffer.from(chunk));
+    const plan = Buffer.concat(chunks).toString('utf8');
+    expect(plan).toContain('Quando esse problema aconteceu pela última vez?');
+    expect(plan).toContain('Fonte e data: __');
+    expect(plan).toContain('favorável / desfavorável / inconclusivo');
+    expect(plan).toContain('não é evidência desfavorável');
+    expect(plan).toContain('Demonstração com dados fictícios.');
+    const saved = await readGuide(page);
+    expect(saved.draft.evidence).toEqual([]);
+    expect(saved.history).toEqual([]);
+  });
+
+  test('abre o registro pelo teclado, posiciona o foco e preserva as respostas', async ({ page }) => {
+    await completeGuide(page);
+    await page.getByRole('button', { name: 'Preparar meu próximo teste', exact: true }).click();
+    const record = page.getByRole('button', { name: 'Registrar o que observei', exact: true });
+    await record.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.getByRole('heading', { name: 'O que já sabemos?', exact: true })).toBeFocused();
+    await expect(page.getByText('Ainda não há evidências registradas.', { exact: true })).toBeVisible();
+    await page.getByRole('button', { name: /Voltar ao guia simples/ }).click();
+    await heading(page, 'Sua ideia, com um próximo passo.');
+    const saved = await readGuide(page);
+    expect(saved.draft.guidedIntake?.answers.work).toBe('documents');
+    expect(saved.draft.evidence).toEqual([]);
+  });
+
+  test('mantém as ações do plano dentro da largura de 320px', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 812 });
+    await completeGuide(page);
+    await page.getByRole('button', { name: 'Preparar meu próximo teste', exact: true }).click();
+    for (const name of ['Baixar plano de teste', 'Registrar o que observei']) {
+      const button = page.getByRole('button', { name, exact: true });
+      await button.scrollIntoViewIfNeeded();
+      await expect(button).toBeInViewport();
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)).toBe(true);
+  });
+});
