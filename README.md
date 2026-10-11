@@ -1,5 +1,7 @@
 # Radar OaaS — Avaliador de Prontidão
 
+[English](README_EN.md) · [Demonstração e estudo de caso](docs/portfolio/CASE_STUDY.md) · [Contribuir](CONTRIBUTING.md)
+
 Aplicativo web em **Astro 7, com ilhas React**, em português para fundadores e equipes de inovação avaliarem uma oportunidade de **Outcome as a Service**. A pergunta central é: **com as evidências disponíveis, para qual etapa este projeto pode avançar, o que impede o avanço e qual experimento deve ser feito?**
 
 O produto organiza evidências e usa regras determinísticas explicáveis. Funciona sem IA generativa e sem chave de API de IA. A fonte editorial é o framework Radar Disruptivo, versão `2026-09-23`; as regras operacionais são `0.1.0-experimental`.

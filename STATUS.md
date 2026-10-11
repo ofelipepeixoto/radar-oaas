@@ -1,5 +1,9 @@
 # Estado verificável — 26/09/2026
 
+## 11/10/2026 UTC — documentação do portfólio
+
+Adicionados guia em inglês, estudo de caso, screenshot e gravação local com dados fictícios, roteiro de reprodução, CONTRIBUTING e template de proposta. Sem alteração de domínio, autenticação, RLS, licenças, dependências ou publicação de serviço. A gravação percorreu o exemplo sintético, evidência e diagnóstico; não comprova Auth privado. `npm run test:unit`: 132 aprovados em seis arquivos. Linux/Node 24.19; código de referência `f536e39cd69b0c5272f5567fc89c910590ea2096`. Build/E2E completo não repetidos nesta edição documental. Próximo passo: revisão humana e merge da PR de documentação; perfil depende desse merge.
+
 ## 03/10/2026 — recuperação de falhas de UX
 
 Melhoria local baseada em `3c0581c0e2997879c2830926caad1ebbf6f4ef01`: carregamento com retry explícito; criação com nome preservado e conferência antes de repetir pedido incerto; sessão expirada ao salvar com respostas preservadas e login em outra aba; falha de acesso com próximo passo; mensagens Auth em português e foco no alerta. Edição bloqueada durante gravação evita marcar texto posterior como salvo. Sem mudança de domínio, autorização do servidor, RLS, migração, Auth global ou IA paga.
