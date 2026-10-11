@@ -45,3 +45,10 @@ Os 197 arquivos do commit `5e53d58210f81afed34b436f069a7ab55e83c3e4` foram confe
 ## Proposta UX — 2026-10-11
 
 Plano de teste exportável no guia, atalho acessível para evidências e relação com a alegação no relatório. Regras, finanças, permissões e snapshots preservados. Validação local bloqueada pelo executor; consulte a CI do PR. Detalhes em docs/ux-audit-2026-10-11.md.
+
+## 2026-10-11 — Paridade do diagnóstico exportado
+
+- Markdown inclui alegação, relação favorável/desfavorável/inconclusiva, período, coorte e revisão da evidência.
+- Legenda compartilhada com a tela preserva a distinção entre zero desfavorável e N/D; demonstração exportada recebe rótulo fictício.
+- Metadados e pesos vêm do snapshot selecionado, sem recalcular versões antigas.
+- Oito regressões unitárias e um E2E novo; ver auditoria e CI do PR #5 para a execução ligada ao SHA.

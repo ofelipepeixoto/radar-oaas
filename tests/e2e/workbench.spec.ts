@@ -186,11 +186,53 @@ test.describe('Demonstração sintética — interface e motor reais, sem servi�
     expect(markdownDownload.suggestedFilename()).toBe('conciliacao-financeira-relatorio.md');
     const markdown = await readDownload(markdownDownload);
     expect(markdown).toContain('# Conciliação financeira — Radar OaaS');
-    expect(markdown).toContain(json.rulesVersion);
+    expect(markdown).toContain(json.rulesVersion.replaceAll('.', '\\.'));
+    expect(markdown).toContain('Snapshot: ' + storedSnapshot.id);
+    expect(markdown).toContain('Demonstração com dados fictícios.');
+    expect(markdown).toContain('Alegação investigada:');
+    expect(markdown).toContain('Relação com a alegação: Favorável / sustenta');
+    expect(markdown).toContain('Período observado: Exploração inicial sintética');
+    expect(markdown).toContain('N/D significa informação ausente ou sem sustentação suficiente.');
     expect(markdown).toContain('Scorecard independente');
     expect(markdown).toContain('nunca auditoria independente');
     expect(markdown).toContain('Não constitui certificação, parecer profissional ou garantia de resultado');
     expect(markdown).toContain('demo-evidence-01');
+  });
+
+
+  test('exporta a evidência da versão antiga selecionada depois de editar e reavaliar', async ({ page }) => {
+    await openDemo(page);
+    await goToStep(page, 'Evidências');
+    const evidence = accordion(page, 'Roteiro fictício da demonstração');
+    await evidence.getByLabel('Alegação à qual esta evidência se vincula', { exact: true }).fill('Alegação fictícia da primeira versão');
+    await evidence.getByLabel('Período observado', { exact: true }).fill('Período fictício original');
+    await evidence.getByLabel('Relação com a alegação', { exact: true }).selectOption('inconclusive');
+    await generateAssessment(page);
+    const first = (await readDemo(page)).history[0];
+
+    await goToStep(page, 'Evidências');
+    await evidence.getByLabel('Alegação à qual esta evidência se vincula', { exact: true }).fill('Alegação fictícia posterior');
+    await evidence.getByLabel('Período observado', { exact: true }).fill('Período fictício posterior');
+    await evidence.getByLabel('Relação com a alegação', { exact: true }).selectOption('contradicts');
+    await generateAssessment(page, 2);
+    await page.getByLabel('Histórico de avaliações', { exact: true }).selectOption(first.id);
+    const report = page.locator('.report-only');
+    await expect(report).toContainText('Alegação fictícia da primeira versão');
+    await expect(report).toContainText('Inconclusiva — ainda não permite concluir');
+    await expect(report).not.toContainText('Alegação fictícia posterior');
+
+    const downloadPromise = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Exportar Markdown', exact: true }).click();
+    const markdown = await readDownload(await downloadPromise);
+    expect(markdown).toContain('Snapshot: ' + first.id);
+    expect(markdown).toContain('Alegação investigada: Alegação fictícia da primeira versão');
+    expect(markdown).toContain('Período observado: Período fictício original');
+    expect(markdown).toContain('Relação com a alegação: Inconclusiva — ainda não permite concluir');
+    expect(markdown).toContain('Demonstração com dados fictícios.');
+    expect(markdown).not.toContain('Alegação fictícia posterior');
+    expect(markdown).not.toContain('Período fictício posterior');
+    expect(markdown).not.toContain('Relação com a alegação: Desfavorável / contradiz');
+    expect((await readDemo(page)).history[1]).toEqual(first);
   });
 
   test('transforma sugestão em experimento editável, salva, restaura e remove o experimento', async ({ page }) => {
