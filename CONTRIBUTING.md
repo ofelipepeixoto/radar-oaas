@@ -1,24 +1,22 @@
-# Como contribuir
+# Contribuir / Contributing
 
-O repositório público [ofelipepeixoto/radar-oaas](https://github.com/ofelipepeixoto/radar-oaas) foi criado em 26/09/2026. O MVP foi publicado no commit `5e53d58210f81afed34b436f069a7ab55e83c3e4` e a [CI remota](https://github.com/ofelipepeixoto/radar-oaas/actions/runs/36221322124) foi aprovada (`completed` / `success`). Licença, titular e termos para contribuições continuam pendentes. Consulte [GOVERNANCE.md](GOVERNANCE.md) e [LICENSE-PROPOSED.md](LICENSE-PROPOSED.md). O fluxo abaixo está preparado para quando os termos de colaboração forem definidos; a criação do repositório não concede uma licença MIT nem autoriza presumir termos de contribuição.
+Contribuições pequenas e verificáveis são bem-vindas. Leia o README e, quando existir, `AGENTS.md` antes de alterar o projeto.
 
-1. Leia README, metodologia e questões da fonte.
-2. Escolha uma issue existente ou descreva o problema; tarefas introdutórias usarão `good first issue` e pedidos de apoio `help wanted`.
-3. Faça fork e crie uma branch com escopo pequeno.
-4. Instale com `npm ci`; execute os comandos em [docs/testing.md](docs/testing.md).
-5. Adicione teste que reproduza o comportamento relevante e atualize a documentação afetada.
-6. Abra pull request com causa, mudança, evidência de execução e limitações.
+Small, reviewable contributions are welcome. Read the README and any `AGENTS.md` before changing the project.
 
-Use apenas dados sintéticos. Não envie `.env`, tokens, dumps, relatórios, contratos ou evidências de projetos privados. Trocar nomes de um caso real não basta para torná-lo público. Vulnerabilidades seguem [SECURITY.md](SECURITY.md).
+## Começar / Start here
 
-## Mudanças nas regras
+- Reproduza a demonstração local com dados fictícios / Run the local synthetic demo.
+- Execute `npm run test:unit`; informe o resultado real / Report the actual result.
+- Faça uma mudança coerente por PR / Keep each PR focused on one coherent change.
+- Descreva problema, comportamento anterior/posterior, verificação e limites / Describe the problem, before/after behavior, verification and limits.
+- Use fixtures sintéticas; não envie documentos reais, `.env`, tokens ou dumps / Use synthetic fixtures; never submit real documents, credentials or dumps.
+- Preserve revisão humana, autorização, regras versionadas e condições de uso / Preserve review, authorization, versioned rules and usage terms.
 
-Toda proposta identifica origem, versão e regra afetada. Inclua exemplos antes/depois, razão estratégica, riscos de avanço indevido e testes. Preserve `null` para N/D, cobertura parcial, revisão humana, travas e snapshots. Alterações que mudam resultados exigem versão de regra nova. Não converter os oito critérios em seis blocos por média implícita.
+## Tarefa inicial proposta / Suggested starter task
 
-## Interface e acessibilidade
+Improve one English/PT-BR terminology entry and add a synthetic example showing the difference between unknown data and unfavorable evidence.
 
-Escreva em português brasileiro, dê nomes claros aos campos, preserve uso por teclado e apresente mensagens além de cor. Texto de evidência é dado não confiável. Não use HTML bruto ou navegação automática para URLs fornecidas. Prefira melhorias que aumentem compreensão de lacunas à gamificação das notas.
+**Aceite / Acceptance:** fixture reproduzível, resultado esperado explícito, documentação dos limites e verificações relevantes aprovadas. Não ampliar escopo, contratar serviços ou ativar provedores reais.
 
-## Revisão
-
-Declare o que foi executado e o que ficou bloqueado; anexar configuração de CI não equivale a CI aprovada. Novas dependências exigem necessidade, licença e versão justificadas. Não introduzir serviços pagos, rastreamento de conteúdo ou IA externa por padrão.
+Report security concerns privately through an existing maintainer contact; do not post exploitable details or secrets in a public issue. A private reporting channel is not newly configured by this document.

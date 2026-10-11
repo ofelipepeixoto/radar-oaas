@@ -105,3 +105,8 @@ Destino autorizado: `ofelipepeixoto/radar-oaas`. A cópia preserva aplicação, 
 - `.security/gitleaks.toml`, scripts de instalação e scan: release 8.30.1 com SHA-256 fixo, bare mirror, redaction e saída sanitizada; scanner incompleto bloqueia.
 - `tests/test_secrets.py`: arquivos limpos, marcador sintético, erro de configuração, segredo removido, gap multipart/verbose reproduzido, bypass de política de PR, mirror de refs e shallow/timeout.
 - `licenses/`: MIT de scanner e controles próprios; licença geral do pacote continua `UNLICENSED`.
+
+
+## Documentação de portfólio — 11/10/2026 UTC
+
+`README_EN.md` e `docs/portfolio/CASE_STUDY.md` → onboarding em inglês e evidência delimitada; `docs/portfolio/RECORDING.md`, `demo.png` e `demo.mp4` → gravação gerada da interface local sintética; `CONTRIBUTING.md` e `.github/ISSUE_TEMPLATE/contribution.yml` → propostas pequenas com critérios de aceite. Origem: apresentação do portfólio, sem mudança da metodologia ou regra versionada. Verificação: 132 testes unitários/IA e percurso de browser selecionado; Auth/RLS real, produção e ganho econômico não validados por esta rodada.
