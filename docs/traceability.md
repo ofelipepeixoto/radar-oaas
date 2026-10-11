@@ -121,4 +121,4 @@ Guia: src/components/guided-journey.tsx → download local do plano e ação de 
 - Modo fictício explícito: prop `demo` encaminhada por `src/components/workbench.tsx`.
 - Versão exportada: metadados/pesos recebidos do próprio snapshot; motor e snapshots não modificados.
 - Regressão: `tests/unit/report.test.ts` (8 casos) e `tests/e2e/workbench.spec.ts` (1 novo percurso e exportação existente ampliada).
-- Comandos e estado: seção “Correção aditiva” de `docs/ux-audit-2026-10-11.md`; execução local bloqueada, CI ligada ao novo SHA no PR #5 ainda necessária no momento desta edição.
+- Execução confirmada do código `47c736c43d3b3d0eca57759f9629d4e9ebef2298`: qualidade 38120148290 (140 unitários/IA, 14 integração, 20 E2E, 12 UX, lint/tipos/build); Auth local 38120148355 (5 + 1); scanner 38120146500 (0 candidatos), fixtures 38120148253 (11). Comandos/links no relatório; nenhuma execução local ou hospedada alegada. Próximo passo: revisão do PR #5.
