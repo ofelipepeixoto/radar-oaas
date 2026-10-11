@@ -115,4 +115,4 @@ Leituras do ambiente publicado: `/api/projects` respondeu `401` sem sessão; `/a
 
 ## Proposta UX — 2026-10-11
 
-Base baec47048c2b14d2ae135967e5961425f4aa84a9. Executor indisponível; nenhum comando local ou teste de navegador executado nesta sessão. Três E2E adicionados para exportação, teclado/foco e 320px; execução e SHA devem ser conferidos na CI do novo PR. Não herdar status de testes antigos. Auditoria: docs/ux-audit-2026-10-11.md.
+Base baec47048c2b14d2ae135967e5961425f4aa84a9. Executor indisponível; nenhum comando local ou teste de navegador executado nesta sessão. Três E2E adicionados para exportação, teclado/foco e 320px. CI do código 0485c93e952b04b37a56f042747f275c6ebe6487 aprovada: 132 unitários/IA, 14 integração, 19 E2E, 12 UX, lint, tipos e build (run 38118777810); Auth local 5 + 1 (38118777812); scanner sem candidatos (38118778099) e 11 fixtures (38118777814). Execuções remotas reais, não locais. PR #5 limpo; PR #1 em conflito, paridade com demo pública pendente. Não herdar status de testes antigos. Auditoria: docs/ux-audit-2026-10-11.md.
